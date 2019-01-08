@@ -1,0 +1,185 @@
+﻿@*<div class="row">
+    <h6></h6>
+    <div class="col-lg-8" style="padding:0;">
+        <div class="col-lg-9">
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="name">Name</label>
+                    <div class="col-lg-4">
+                        <input type="text" name="name" id="name" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="dob">DOB</label>
+                    <div class="col-lg-4">
+                        <input type="date" name="dob" id="dob" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="Address">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="Address" id="Address" class="form-control" style="max-width:100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="phone">Phone</label>
+                    <div class="col-lg-4">
+                        <input type="text" name="phone" id="phone" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="doctor">Doctor</label>
+                    <div class="col-lg-4">
+                        <input type="text" name="doctor" id="doctor" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="Medication">Medication</label>
+                    <div class="col-lg-2">
+                        <select name="Medication" id="Medication" class="form-control">
+                            <option value="value">Methadone</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-1" for="Dose">Dose</label>
+                    <div class="input-group col-lg-3">
+                        <input type="number" name="Dose" id="Dose" value="" class="form-control" />
+                        <span class="form-control-feedback input-group-addon">Ml</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-1 control-label" for="Juice">Juice</label>
+                    <div class="col-lg-3">
+                        <select name="Juice" id="Juice" class="form-control">
+                            <option value="value">Orange</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+                    <label class="checkbox-inline"><input type="checkbox" value="">Mon</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Tues</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Wed</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Thur</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Fri</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Sat</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Sun</label>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="Notes">Notes</label>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" cols="20" rows="4" id="Notes" style="max-width:100%"></textarea>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-3" style="padding:0;">
+            <div class="form-group">
+                <img class="img-responsive" src="~/Content/imags/photo.png" alt="photo" />
+                <div class="file-upload">
+                    <div>
+                        <div class="file-select">
+                            <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                            <div class="file-select-button" id="fileNamecam"><span class="glyphicon glyphicon-camera"></span></div>
+                            <div class="file-select-name" id="noFile">no files...</div>
+                            <input type="file" name="chooseFile" id="ifiles" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <img class="img-responsive" src="~/Content/imags/identification.png" alt="id card" />
+                <div class="file-upload">
+                    <div>
+                        <div class="file-select">
+                            <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                            <div class="file-select-button" id="fileNamecam"><span class="glyphicon glyphicon-camera"></span></div>
+                            <div class="file-select-name" id="noFile">no files...</div>
+                            <input type="file" name="chooseFile" id="ifiles" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h6></h6>
+            <div class="col-lg-12">
+                <div class="col-lg-5">
+                    <div id="datetimepicker"></div>
+                </div>
+                <div class="col-lg-7">
+                    <h4>Rx history</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-2">Date</th>
+                                <th class="col-lg-10">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4" style="padding:0;">
+        <div class="form-group">
+            <img class="img-responsive" src="~/Content/imags/rosheta.png" alt="rosheta" />
+            <div class="file-upload">
+                <div>
+                    <div class="file-select">
+                        <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                        <div class="file-select-button" id="fileNamecam"><span class="glyphicon glyphicon-camera"></span></div>
+                        <div class="file-select-name" id="noFile">no files...</div>
+                        <input type="file" name="chooseFile" id="ifiles" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+    $( document ).ready( function ()
+    {
+        $( '#datetimepicker' ).datepicker( {
+            //inline: true,
+            //sideBySide: true
+        } );
+    } );
+</script>
+}*@

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ArVision.Pharma.Shared.DataModels.PatientVisit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DayWeek)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VisitDate)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Doctor.DoctorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Juice.JuiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medicin.MidicinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Patient.PatientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rx.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DayWeek)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VisitDate)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Doctor.DoctorName)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Juice.JuiceName)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Medicin.MidicinName)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Patient.PatientName)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Rx.Id)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.User.UserName)*@
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+            @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+        </td>
+    </tr>
+}
+
+</table>

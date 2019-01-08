@@ -1,0 +1,366 @@
+﻿@model ArVision.Pharma.Shared.DataModels.PatientVisit
+
+<div class="row">
+    <h6></h6>
+    @*<div class="col-lg-8" style="padding:0;">
+        <div class="col-lg-9">
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="name">Name</label>
+                    <div class="col-lg-4">
+                        <input type="text" name="name" id="name" value="@Model.Patient.FullName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="dob">DOB</label>
+                    <div class="col-lg-4">
+                        <input type="text" name="dob" id="dob" value="@Model.Patient.Id" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="Address">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="Address" id="Address" value="@Model.Patient.FullName" class="form-control" style="max-width:100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="Phone">Phone</label>
+                    <div class="col-lg-4">
+                        <input type="text" name="Phone" id="Phone" value="@Model.Patient.FirstName" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="doctor">Doctor</label>
+                    <div class="col-lg-4">
+                        @*<input type="text" name="doctor" id="doctor" value="@Model.Patient.PatientName" class="form-control" />*@
+                        @Html.DropDownList("DoctorId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="Medication">Medication</label>
+                    <div class="col-lg-2">
+                        @*<select name="Medication" id="Medication" class="form-control">
+                            <option value="value">Methadone</option>
+                        </select>*@
+                        @Html.DropDownList("MedicinId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-1" for="Dose">Dose</label>
+                    <div class="input-group col-lg-3">
+                        <input type="number" name="Dose" id="Dose" value="@Model.Dose" class="form-control" />
+                        <span class="form-control-feedback input-group-addon">Ml</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-1 control-label" for="Juice">Juice</label>
+                    <div class="col-lg-3">
+                        @*<select name="Juice" id="Juice" class="form-control">
+                            <option value="value">Orange</option>
+                        </select>*@
+                        @Html.DropDownList("JuiceId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+                    <label class="checkbox-inline"><input type="checkbox" value="">Mon</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Tues</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Wed</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Thur</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Fri</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Sat</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="">Sun</label>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label" for="Notes">Notes</label>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" cols="20" rows="4" id="Notes" style="max-width:100%">@Model.Notes</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" style="padding:0;">
+            <div class="form-group">
+                <img id="imgPatientPhoto" class="img-responsive" src="~/Content/imags/photo.png" alt="photo" />
+                <div class="file-upload">
+                    <div>
+                        <div class="file-select">
+                            <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                            @*<button class="file-select-button1" id="fileNamecam1"><span class="glyphicon glyphicon-camera"></span></button>*@
+                            <div class="file-select-name" id="noFile">no files...</div>
+                            <input type="file" name="chooseFile" id="ifiles" multiple>
+                        </div>
+                    </div>
+                </div>
+                <button class="file-select-button cam" id="camPhoto"><span class="glyphicon glyphicon-camera"></span></button>
+            </div>
+            <div class="form-group">
+                <img id="imgIdentification" class="img-responsive" src="~/Content/imags/identification.png" alt="id card" />
+                <div class="file-upload">
+                    <div>
+                        <div class="file-select">
+                            <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                            <div class="file-select-name" id="noFile">no files...</div>
+                            <input type="file" name="chooseFile" id="ifiles" multiple>
+                        </div>
+                    </div>
+                </div>
+                <button class="file-select-button cam" id="camIdentification"><span class="glyphicon glyphicon-camera"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <h6></h6>
+            <div class="col-lg-12">
+                <div class="col-lg-5">
+                    <div id="datetimepicker"></div>
+                </div>
+                <div class="col-lg-7">
+                    <h4>Rx history</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-lg-2">Date</th>
+                                <th class="col-lg-10">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                            <tr>
+                                <td>11/11/2018</td>
+                                <td>Tomass</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4" style="padding:0;">
+        <div class="form-group">
+            <img id="imgRx" class="img-responsive" src="~/Content/imags/rosheta.png" alt="rosheta" />
+            <div class="file-upload">
+                <div>
+                    <div class="file-select">
+                        <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                        <div class="file-select-name" id="noFile">no files...</div>
+                        <input type="file" name="chooseFile" id="ifiles" multiple>
+                    </div>
+                </div>
+            </div>
+            <button class="file-select-button cam" id="camRx"><span class="glyphicon glyphicon-camera"></span></button>
+        </div>
+    </div>*@
+</div>
+<div id="videoDiv" style="position:absolute;left:30vw;top:10vh;display:none;
+width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
+
+    <div class="col-md-12">
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas style="display:none" id="canvas" width="640" height="480"></canvas>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+    $( document ).ready( function ()
+    {
+        $( '#videoDiv' ).draggable();
+        $( '#datetimepicker' ).datepicker( {
+            //inline: true,
+            //sideBySide: true
+        } );
+        $( '.cam' ).on( 'click', function ( ev )
+        {
+            var target;
+            switch ( this.id )
+            {
+                case 'camPhoto':
+                    target = $( '#imgPatientPhoto' )[0];
+                    break;
+                case 'camIdentification':
+                    target = $( '#imgIdentification' )[0];
+                    break;
+                case 'camRx':
+                    target = $( '#imgRx' )[0];
+                    break;
+                default:
+            }
+            $( '#videoDiv' ).show();
+            // Grab elements, create settings, etc.
+            var video = document.getElementById( 'video' );
+
+            // Get access to the camera!
+            if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia )
+            {
+                // Not adding `{ audio: true }` since we only want video now
+                navigator.mediaDevices.getUserMedia( { video: true } ).then( function ( stream )
+                {
+                    //video.src = window.URL.createObjectURL(stream);
+                    video.srcObject = stream;
+                    video.play();
+                    $( '#snap' ).off( 'click' );
+                    makeSnapListen( video, stream, target );
+                } );
+            }
+            /* Legacy code below: getUserMedia */
+            else if ( navigator.getUserMedia )
+            { // Standard
+                navigator.getUserMedia( { video: true }, function ( stream )
+                {
+                    video.src = stream;
+                    video.play();
+                    makeSnapListen( video, stream );
+                }, errBack );
+            } else if ( navigator.webkitGetUserMedia )
+            { // WebKit-prefixed
+                navigator.webkitGetUserMedia( { video: true }, function ( stream )
+                {
+                    video.src = window.webkitURL.createObjectURL( stream );
+                    video.play();
+                    makeSnapListen( video, stream );
+                }, errBack );
+            } else if ( navigator.mozGetUserMedia )
+            { // Mozilla-prefixed
+                navigator.mozGetUserMedia( { video: true }, function ( stream )
+                {
+                    video.srcObject = stream;
+                    video.play();
+                    makeSnapListen( video, stream );
+                }, errBack );
+            }
+
+        } );
+        function makeSnapListen( video, stream, target)
+        {
+            $( '#snap' ).on( 'click', function ( ev )
+            {
+                var canvas = document.getElementById( 'canvas' );
+                var context = canvas.getContext( '2d' );
+
+                // Trigger photo take
+                context.drawImage( video, 0, 0, 640, 480 );
+                var base64 = canvas.toDataURL( "image/jpeg" );
+                target.src = base64;
+                video.pause();
+                video.srcObject = null;
+                var track = stream.getTracks()[0];  // if only one media track
+                track.stop();
+                $( '#videoDiv' ).hide();
+            } );
+        }
+    } );
+    </script>
+}
+
+
+
+
+
+
+@*@{
+        ViewBag.Title = "Details";
+    }
+
+    <h2>Details</h2>
+
+    <div>
+        <h4>PatientVisit</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DayWeek)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DayWeek)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VisitDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VisitDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Doctor.DoctorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Doctor.DoctorName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Juice.JuiceName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Juice.JuiceName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Medicin.MidicinName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Medicin.MidicinName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Patient.PatientName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patient.PatientName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Rx.Id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Rx.Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.UserName)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
