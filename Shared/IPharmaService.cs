@@ -14,7 +14,11 @@ namespace ArVision.Service.Pharma.Shared
         /// <returns></returns>
         ApiVersion GetVersion();
         void Test(SampleInputData sampleInputData);
-        List<Juice> GetJuiceList();
+        List<Juices> GetJuiceList();
+        List<LookUpDto> GetList(string table);
         List<Patient> GetPatientList();
+        PatientDto AddPatient(PatientDto patient);
+        RXDto AddRXToPatient(RXDto rx);
+        PatientDto GetPatientWithRX(int id);
     }
 }

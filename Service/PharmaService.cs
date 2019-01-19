@@ -77,11 +77,29 @@ namespace ArVision.Service.Pharma
             LogManager.Logger.Trace($"{LogManager.GetCurrentMethodName(nameof(PharmaService))}; sampleInputData: [{sampleInputData}]");
 
         }
-        public List<Juice> GetJuiceList()
+        public PatientDto AddPatient(PatientDto patient)
+        {
+            LogManager.Logger.Trace($"{LogManager.GetCurrentMethodName(nameof(PharmaService))}; patient: [{patient}]");
+            return pharmaRepositoy.AddPatient(patient);
+        }
+        public RXDto AddRXToPatient(RXDto rx)
+        {
+            LogManager.Logger.Trace($"{LogManager.GetCurrentMethodName(nameof(PharmaService))}; RX: [{rx}]");
+            return pharmaRepositoy.AddRXToPatient(rx);
+        }
+        public List<Juices> GetJuiceList()
         {
             return pharmaRepositoy.GetJuiceList();
         }
 
+        public List<LookUpDto> GetList(string table)
+        {
+            return pharmaRepositoy.GetList(table);
+        }
+        public PatientDto GetPatientWithRX(int id)
+        {
+            return pharmaRepositoy.GetPatientWithRX(id);
+        }
         public List<Patient> GetPatientList()
         {
             return pharmaRepositoy.GetPatientList();

@@ -43,12 +43,17 @@
   <ItemGroup>
     <Compile Include="DataModels\Doctor.cs" />
     <Compile Include="DataModels\Juice.cs" />
+    <Compile Include="DataModels\Juices.cs" />
     <Compile Include="DataModels\Medicin.cs" />
     <Compile Include="DataModels\Patient.cs" />
     <Compile Include="DataModels\PatientVisit.cs" />
     <Compile Include="DataModels\Rx.cs" />
     <Compile Include="DataModels\User.cs" />
     <Compile Include="DTO\ApiVersion.cs" />
+    <Compile Include="DTO\LookUpDto.cs" />
+    <Compile Include="DTO\PatientRXDto.cs" />
+    <Compile Include="DTO\RXDto.cs" />
+    <Compile Include="DTO\PatientDto.cs" />
     <Compile Include="IPharmaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DTO\SampleInputData.cs" />

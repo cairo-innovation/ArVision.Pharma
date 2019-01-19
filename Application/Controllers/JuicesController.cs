@@ -9,14 +9,14 @@ using ArVision.Service.Client;
 
 namespace Pharma.Controllers
 {
-    public class JuicesController : Controller
+    public class JuicesController : BaseController
     {
-        private const string CLASS_NAME = nameof(JuicesController);
-        private const string SERVICE_URL = "127.0.0.1";
+        //private const string CLASS_NAME = nameof(JuicesController);
+        //private const string SERVICE_URL = "127.0.0.1";
 
-        //private Entities db = new Entities();
+        ////private Entities db = new Entities();
 
-        private PharmaServiceProxy pharmaServiceClient;
+        //private PharmaServiceProxy pharmaServiceClient;
 
 
         // GET: Juices
@@ -29,7 +29,8 @@ namespace Pharma.Controllers
 
             }
 
-            return View(pharmaServiceClient.GetJuiceList().ToList());
+            //return View(pharmaServiceClient.GetJuiceList().ToList());
+            return View(pharmaServiceClient.GetList("Juice").ToList());
         }
 
         // GET: Juices/Details/5

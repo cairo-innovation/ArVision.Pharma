@@ -1,5 +1,6 @@
 ﻿using ArVision.Core.Logging;
 using ArVision.Pharma.Shared.DataModels;
+using ArVision.Service.Pharma.Shared.DTO;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -45,21 +46,160 @@ namespace ArVision.Pharma.DataAccess
             SqliteDapperDbContext databaseContext = new SqliteDapperDbContext(connectionString);
             _databaseContext = databaseContext;
         }
-        public List<Juice> GetJuiceList()
+        public List<LookUpDto> GetList(string table)
+        {
+            string sql = string.Format(@"
+                SELECT
+                  Id as Id,
+                  Name as Name
+                
+                FROM {0};
+            ", table);
+
+            var List = _databaseContext.Query<LookUpDto>(sql, null).ToList();
+
+            return List;
+        }
+        public PatientDto GetPatientWithRX(int id)
+        {
+            string patientsql = @"
+                                select
+                                    *
+                                from Patient
+                                where Id=@pid;
+                                ";
+            var patientparam = new { pid = id };
+            var patient = _databaseContext.Query<PatientDto>(patientsql, patientparam).FirstOrDefault();
+            var lastrxsql = @"select * from RX where PatientId=@pid order by CreatedDate LIMIT 1";
+            var lastrx = _databaseContext.Query<RXDto>(lastrxsql, patientparam).FirstOrDefault();
+            patient.RX = new List<RXDto>();
+            if (lastrx != null) patient.RX.Add(lastrx);
+            var last5rxsql = @"select id, createdDate from RX where PatientId=@pid order by CreatedDate LIMIT 5";
+            var last5rx = _databaseContext.Query<RXDto>(last5rxsql, patientparam).ToList();
+            if (last5rx.Count != 0)
+            {
+                last5rx.RemoveAt(0);
+                for (int i = 0; i < last5rx.Count; i++)
+                {
+                    patient.RX.Add(last5rx[i]);
+                }
+            }
+            return patient;
+        }
+        public List<Juices> GetJuiceList()
         {
             const string sql = @"
                 SELECT
-                  id as Id,
-                  name as Name
+                  Id as Id,
+                  JuiceName as JuiceName
                 
                 FROM Juice;
             ";
 
-            var juiceList = _databaseContext.Query<Juice>(sql, null).ToList();
+            var juiceList = _databaseContext.Query<Juices>(sql, null).ToList();
 
             return juiceList;
         }
+        public List<Juices> GetDoctorList()
+        {
+            const string sql = @"
+                SELECT
+                  Id as Id,
+                  DoctorName as DoctorName
+                
+                FROM Doctor;
+            ";
 
+            var juiceList = _databaseContext.Query<Juices>(sql, null).ToList();
+
+            return juiceList;
+        }
+        public PatientDto AddPatient(PatientDto patient)
+        {
+            using (var transaction = _databaseContext.BeginTransaction())
+            {
+                var createPatientSql = @"
+                                        INSERT INTO patient (Name, DOB, Address, Phone, DoctorId, PatientIMG, PatientIdenficationIMG, CreatedUser)
+                                        VALUES (@_name, @_dob, @_address, @_phone, @_doctorid, @_patientimg, @_patientidentificationimg, @_createduser)
+                                        ;
+                                        SELECT last_insert_rowid();";
+                var createPatientSqlParams = new
+                {
+                    _name = patient.Name,
+                    _dob = patient.DOB,
+                    _address = patient.Address,
+                    _phone = patient.Phone,
+                    _doctorid = patient.DoctorId,
+                    _patientimg = patient.PatientIMG,
+                    _patientidentificationimg = patient.PatientIdenficationIMG,
+                    _createduser = patient.CreatedUser,
+                };
+                var patientId = _databaseContext.Query<int>(createPatientSql, createPatientSqlParams).First();
+                patient.Id = patientId;
+                var createRXSql = @"
+                                        INSERT INTO RX (StartDate, EndDate, PatientId, MedicineId, Dose, JuiceId, IMG, Notes, SunDay, MonDay, TusDay, WedDay, ThrDay, FriDay, SatDay,CreatedUser)
+                                        VALUES (@_startdate, @_enddate, @_patientid, @_medicineid, @_dose, @_juiceid, @_img, @_notes, @_sun, @_mon, @_tus, @_wed, @_thr, @_fri, @_sat, @_createduser)
+                                        ;
+                                        SELECT last_insert_rowid();";
+                var createRXSqlParams = new
+                {
+                    _startdate = patient.RX[0].StartDate,
+                    _enddate = patient.RX[0].EndDate,
+                    _patientid = patient.Id,
+                    _medicineid = patient.RX[0].MedicineId,
+                    _dose = patient.RX[0].Dose,
+                    _juiceid = patient.RX[0].JuiceId,
+                    _img = patient.RX[0].IMG,
+                    _notes = patient.RX[0].Notes,
+                    _sun = patient.RX[0].SunDay,
+                    _mon = patient.RX[0].MonDay,
+                    _tus = patient.RX[0].TusDay,
+                    _wed = patient.RX[0].WedDay,
+                    _thr = patient.RX[0].ThrDay,
+                    _fri = patient.RX[0].FriDay,
+                    _sat = patient.RX[0].SatDay,
+                    _createduser = patient.RX[0].CreatedUser,
+                };
+                var rxId = _databaseContext.Query<int>(createRXSql, createRXSqlParams).First();
+                patient.RX[0].Id = rxId;
+                transaction.Commit();
+            }
+            return patient;
+        }
+        public RXDto AddRXToPatient(RXDto rx)
+        {
+            using (var transaction = _databaseContext.BeginTransaction())
+            {
+                var createRXSql = @"
+                                        INSERT INTO RX (StartDate, EndDate, PatientId, MedicineId, Dose, JuiceId, IMG, Notes, SunDay, MonDay, TusDay, WedDay, ThrDay, FriDay, SatDay,CreatedUser)
+                                        VALUES (@_startdate, @_enddate, @_patientid, @_medicineid, @_dose, @_juiceid, @_img, @_notes, @_sun, @_mon, @_tus, @_wed, @_thr, @_fri, @_sat, @_createduser)
+                                        ;
+                                        SELECT last_insert_rowid();";
+                var createRXSqlParams = new
+                {
+                    _startdate = rx.StartDate,
+                    _enddate = rx.EndDate,
+                    _patientid = rx.PatientId,
+                    _medicineid = rx.MedicineId,
+                    _dose = rx.Dose,
+                    _juiceid = rx.JuiceId,
+                    _img = rx.IMG,
+                    _notes = rx.Notes,
+                    _sun = rx.SunDay,
+                    _mon = rx.MonDay,
+                    _tus = rx.TusDay,
+                    _wed = rx.WedDay,
+                    _thr = rx.ThrDay,
+                    _fri = rx.FriDay,
+                    _sat = rx.SatDay,
+                    _createduser = rx.CreatedUser,
+                };
+                var rxId = _databaseContext.Query<int>(createRXSql, createRXSqlParams).First();
+                rx.Id = rxId;
+                transaction.Commit();
+            }
+            return rx;
+        }
         /*
             public ModuleDto Insert(ModuleDto moduleDto)
             {

@@ -1,21 +1,28 @@
-﻿@model ArVision.Pharma.Shared.DataModels.PatientVisit
+﻿@*@model ArVision.Pharma.Shared.DataModels.PatientVisit*@
 
 <div class="row">
     <h6></h6>
-    @*<div class="col-lg-8" style="padding:0;">
+    <div class="col-lg-8" style="padding:0;">
         <div class="col-lg-9">
             <div class="row">
                 <h6></h6>
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="name">Name</label>
-                    <div class="col-lg-4">
-                        <input type="text" name="name" id="name" value="@Model.Patient.FullName" class="form-control" />
+                    <div id="ExistedPatient" class="input-group col-lg-4" style="display:@ViewBag.ep">
+                        @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control select2",@id="patient" })
+                        @*<input type="text" name="name" id="name" value="@Model.Patient.PatientName" class="form-control" />*@
+                        <span id="btnSearchPatient" class="btn form-control-feedback input-group-addon glyphicon glyphicon-search"></span>
+                    </div>
+                    <div id="NewPatient" class="input-group col-lg-4" style="display:@ViewBag.np">
+                        @*@Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control select2" })*@
+                        <input type="text" name="name" id="name" value="" class="form-control" />
+                        @*<span id="btnSearchPatient" class="btn form-control-feedback input-group-addon glyphicon glyphicon-search"></span>*@
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="dob">DOB</label>
                     <div class="col-lg-4">
-                        <input type="text" name="dob" id="dob" value="@Model.Patient.Id" class="form-control" />
+                        <input type="date" name="dob" id="dob" value="" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -24,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="Address">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" name="Address" id="Address" value="@Model.Patient.FullName" class="form-control" style="max-width:100%" />
+                        <input type="text" name="Address" id="Address" value="" class="form-control" style="max-width:100%" />
                     </div>
                 </div>
             </div>
@@ -33,7 +40,7 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="Phone">Phone</label>
                     <div class="col-lg-4">
-                        <input type="text" name="Phone" id="Phone" value="@Model.Patient.FirstName" class="form-control" />
+                        <input type="text" name="Phone" id="Phone" value="" class="form-control" />
                     </div>
                 </div>
 
@@ -41,25 +48,25 @@
                     <label class="col-lg-2 control-label" for="doctor">Doctor</label>
                     <div class="col-lg-4">
                         @*<input type="text" name="doctor" id="doctor" value="@Model.Patient.PatientName" class="form-control" />*@
-                        @Html.DropDownList("DoctorId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("DoctorId", null, htmlAttributes: new { @class = "form-control",@id="doctor" })
                     </div>
                 </div>
             </div>
             <div class="row">
                 <h6></h6>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label" for="Medication">Medication</label>
-                    <div class="col-lg-2">
+                    <label class="col-lg-1 control-label" for="Medicine">Medicine</label>
+                    <div class="col-lg-3">
                         @*<select name="Medication" id="Medication" class="form-control">
                             <option value="value">Methadone</option>
                         </select>*@
-                        @Html.DropDownList("MedicinId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("MedicinId", null, htmlAttributes: new { @class = "form-control",@id="medicine" })
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-lg-1" for="Dose">Dose</label>
                     <div class="input-group col-lg-3">
-                        <input type="number" name="Dose" id="Dose" value="@Model.Dose" class="form-control" />
+                        <input type="number" name="Dose" id="Dose" value="" class="form-control" />
                         <span class="form-control-feedback input-group-addon">Ml</span>
                     </div>
                 </div>
@@ -69,20 +76,20 @@
                         @*<select name="Juice" id="Juice" class="form-control">
                             <option value="value">Orange</option>
                         </select>*@
-                        @Html.DropDownList("JuiceId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("JuiceId", null, htmlAttributes: new { @class = "form-control",@id="juice" })
                     </div>
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-10">
-                    <label class="checkbox-inline"><input type="checkbox" value="">Mon</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="">Tues</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="">Wed</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="">Thur</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="">Fri</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="">Sat</label>
-                    <label class="checkbox-inline"><input type="checkbox" value="">Sun</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Mon" value="">Mon</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Tues" value="">Tues</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Wed" value="">Wed</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Thur" value="">Thur</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Fri" value="">Fri</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Sat" value="">Sat</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="Sun" value="">Sun</label>
                 </div>
             </div>
             <div class="row">
@@ -90,8 +97,10 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label" for="Notes">Notes</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" cols="20" rows="4" id="Notes" style="max-width:100%">@Model.Notes</textarea>
+                        <textarea class="form-control" cols="20" rows="4" id="Notes" style="max-width:100%">@*@Model.Notes*@</textarea>
                     </div>
+                    <input class="btn btn-primary" id="btnSavePatientRX" type="button" name="name" value="Save new patient with RX" />
+                    <input class="btn btn-primary" id="btnAddRXToPatient" type="button" name="name" value="Add RX to patient" />
                 </div>
             </div>
         </div>
@@ -103,8 +112,8 @@
                         <div class="file-select">
                             <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
                             @*<button class="file-select-button1" id="fileNamecam1"><span class="glyphicon glyphicon-camera"></span></button>*@
-                            <div class="file-select-name" id="noFile">no files...</div>
-                            <input type="file" name="chooseFile" id="ifiles" multiple>
+                            <div class="file-select-name" id="noFile"></div>
+                            <input type="file" name="chooseFile" id="uploadPhoto" onchange="previewFile('uploadPhoto','imgPatientPhoto')">
                         </div>
                     </div>
                 </div>
@@ -116,8 +125,8 @@
                     <div>
                         <div class="file-select">
                             <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
-                            <div class="file-select-name" id="noFile">no files...</div>
-                            <input type="file" name="chooseFile" id="ifiles" multiple>
+                            <div class="file-select-name" id="noFile"></div>
+                            <input type="file" name="chooseFile" id="uploadIdentification" onchange="previewFile('uploadIdentification','imgIdentification')">
                         </div>
                     </div>
                 </div>
@@ -132,15 +141,14 @@
                 </div>
                 <div class="col-lg-7">
                     <h4>Rx history</h4>
-                    <table class="table table-bordered">
+                    <table id="tblRxHistory" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th class="col-lg-2">Date</th>
-                                <th class="col-lg-10">Name</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @*<tr>
                                 <td>11/11/2018</td>
                                 <td>Tomass</td>
                             </tr>
@@ -155,7 +163,7 @@
                             <tr>
                                 <td>11/11/2018</td>
                                 <td>Tomass</td>
-                            </tr>
+                            </tr>*@
                         </tbody>
                     </table>
                 </div>
@@ -170,13 +178,25 @@
                     <div class="file-select">
                         <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
                         <div class="file-select-name" id="noFile">no files...</div>
-                        <input type="file" name="chooseFile" id="ifiles" multiple>
+                        <input type="file" name="chooseFile" id="uploadRx" onchange="previewFile('uploadRx','imgRx')">
                     </div>
                 </div>
             </div>
             <button class="file-select-button cam" id="camRx"><span class="glyphicon glyphicon-camera"></span></button>
         </div>
-    </div>*@
+        <div class="form-group">
+            <label class="control-label" for="SDate">Start Date</label>
+            <div>
+                <input type="text" name="SDate" id="SDate" value="" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="EDate">End Date</label>
+            <div>
+                <input type="text" name="EDate" id="EDate" value="" class="form-control" />
+            </div>
+        </div>
+    </div>
 </div>
 <div id="videoDiv" style="position:absolute;left:30vw;top:10vh;display:none;
 width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
@@ -195,6 +215,104 @@ width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
         $( '#datetimepicker' ).datepicker( {
             //inline: true,
             //sideBySide: true
+        } );
+        $( '#btnSearchPatient' ).on( 'click', function ()
+        {
+            var patientid = $( '#patient' ).val();
+            $.get( '/visits/GetPatientWithRX/' + patientid, function ( res )
+            {
+                $( '#name' ).val(res.Name);
+                $( '#patient' ).val(res.Id);
+                $( '#dob' ).val( eval( 'new ' + res.DOB.replace( '/', '' ).replace( '/', '' ) ).toString());
+                $( '#Address' ).val(res.Address);
+                $( '#Phone' ).val(res.Phone);
+                $( '#doctor' ).val(res.DoctorId);
+                $( '#imgPatientPhoto' )[0].src = res.PatientIMG;
+                $( '#imgIdentification' )[0].src = res.PatientIdenficationIMG;
+                if ( res.RX && res.RX.length>0 )
+                {
+                    $( '#medicine' ).val( res.RX[0].MedicineId);
+                    $( '#Dose' ).val( res.RX[0].Dose);
+                    $( '#juice' ).val( res.RX[0].JuiceId);
+                    $( '#Mon' )[0].checked = res.RX[0].MonDay == 0 ? false : true;
+                    $( '#Tues' )[0].checked = res.RX[0].TusDay == 0 ? false : true;
+                    $( '#Wed' )[0].checked = res.RX[0].WedDay == 0 ? false : true;
+                    $( '#Thur' )[0].checked = res.RX[0].ThrDay == 0 ? false : true;
+                    $( '#Fri' )[0].checked = res.RX[0].FriDay == 0 ? false : true;
+                    $( '#Sat' )[0].checked = res.RX[0].SatDay == 0 ? false : true;
+                    $( '#Sun' )[0].checked = res.RX[0].SunDay == 0 ? false : true;
+                    $( '#Notes' ).val( res.RX[0].Notes);
+                    $( '#imgRx' )[0].src = res.RX[0].IMG;
+                    $( '#SDate' ).val( eval( 'new ' + res.RX[0].StartDate.replace( '/', '' ).replace( '/', '' ) ).toString());
+                    $( '#EDate' ).val( eval( 'new ' + res.RX[0].EndDate.replace( '/', '' ).replace( '/', '' ) ).toString() );
+                    var rxhistoryhtml = '';
+                    //var d = new Date( 1547917893000 );
+                    for ( var i = 0; i < res.RX.length; i++ )
+                    {
+                        rxhistoryhtml += '<tr><td>' + eval( 'new ' + res.RX[i].CreatedDate.replace( '/', '' ).replace( '/', '' )).toString() + '</td></tr>';
+                    }
+                    $( '#tblRxHistory tbody' ).html('');
+                    $( '#tblRxHistory tbody' ).append( rxhistoryhtml);
+                }
+            } );
+        } )
+        $( '#btnSavePatientRX' ).on( 'click', function ()
+        {
+            var data = {};
+            data.Name = $( '#name' ).val();
+            data.DOB = $( '#dob' ).val();
+            data.Address = $( '#Address' ).val();
+            data.Phone = $( '#Phone' ).val();
+            data.DoctorId = $( '#doctor' ).val();
+            data.PatientIMG = $( '#imgPatientPhoto' )[0].src;
+            data.PatientIdenficationIMG = $( '#imgIdentification' )[0].src;
+            data.CreatedUser = '1';
+            data.RX = [];
+            var rx = {};
+            rx.StartDate = $( '#SDate' ).val();
+            rx.EndDate = $( '#EDate' ).val();
+            rx.MedicineId = $( '#medicine' ).val();
+            rx.Dose = $( '#Dose' ).val();
+            rx.JuiceId = $( '#juice' ).val();
+            rx.MonDay = $( '#Mon' )[0].checked ? '1' : '0';
+            rx.TusDay = $( '#Tues' )[0].checked ? '1' : '0';
+            rx.WedDay = $( '#Wed' )[0].checked ? '1' : '0';
+            rx.ThrDay = $( '#Thur' )[0].checked ? '1' : '0';
+            rx.FriDay = $( '#Fri' )[0].checked ? '1' : '0';
+            rx.SatDay = $( '#Sat' )[0].checked ? '1' : '0';
+            rx.SunDay = $( '#Sun' )[0].checked ? '1' : '0';
+            rx.Notes = $( '#Notes' ).val();
+            rx.IMG = $( '#imgRx' )[0].src;
+            rx.CreatedUser = '1';
+            data.RX.push( rx );
+            $.post( 'http://127.0.0.1:9080/AddPatientRX', data, function (res)
+            {
+                alert( 'Patient with Id:' + res.Id + ' has been save successfullly.' );
+            })
+        } )
+        $( '#btnAddRXToPatient' ).on( 'click', function ()
+        {
+            var rx = {};
+            rx.StartDate = $( '#SDate' ).val();
+            rx.EndDate = $( '#EDate' ).val();
+            rx.MedicineId = $( '#medicine' ).val();
+            rx.PatientId = $( '#patient' ).val();
+            rx.Dose = $( '#Dose' ).val();
+            rx.JuiceId = $( '#juice' ).val();
+            rx.MonDay = $( '#Mon' )[0].checked ? '1' : '0';
+            rx.TusDay = $( '#Tues' )[0].checked ? '1' : '0';
+            rx.WedDay = $( '#Wed' )[0].checked ? '1' : '0';
+            rx.ThrDay = $( '#Thur' )[0].checked ? '1' : '0';
+            rx.FriDay = $( '#Fri' )[0].checked ? '1' : '0';
+            rx.SatDay = $( '#Sat' )[0].checked ? '1' : '0';
+            rx.SunDay = $( '#Sun' )[0].checked ? '1' : '0';
+            rx.Notes = $( '#Notes' ).val();
+            rx.IMG = $( '#imgRx' )[0].src;
+            rx.CreatedUser = '1';
+            $.post( 'http://127.0.0.1:9080/AddRXToPatient', rx, function ( res )
+            {
+                alert( 'RX for this Patient with Id:' + res.Id + ' has been save successfullly.' );
+            } )
         } );
         $( '.cam' ).on( 'click', function ( ev )
         {
@@ -257,7 +375,7 @@ width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
             }
 
         } );
-        function makeSnapListen( video, stream, target)
+        function makeSnapListen( video, stream, target )
         {
             $( '#snap' ).on( 'click', function ( ev )
             {
@@ -276,6 +394,24 @@ width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
             } );
         }
     } );
+        function previewFile( uploadId, imgId )
+        {
+            //var preview = document.querySelector( 'img' );
+            //var file = document.querySelector( 'input[type=file]' ).files[0];
+            var preview = document.getElementById( imgId );
+            var file = document.getElementById( uploadId ).files[0];
+            var reader = new FileReader();
+
+            reader.addEventListener( "load", function ()
+            {
+                preview.src = reader.result;
+            }, false );
+
+            if ( file )
+            {
+                reader.readAsDataURL( file );
+            }
+        }
     </script>
 }
 

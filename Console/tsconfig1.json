@@ -1,0 +1,29 @@
+﻿[
+  {
+    "BillNumber": 1032529,
+    "CarCode": "623 ف أ ن\t",
+    "ClientAddress": "بلوك37 - امام نادى",
+    "ClientCode": 10489,
+    "Date": "Thu Dec 27 13:43:18 GMT+02:00 2018",
+    "DateSap": "٢٠١٨١٢٢٧",
+    "DriverName": "كريم السيد محمد حمد",
+    "EmployeeCode": 667,
+    "IV_INDECATOR": "",
+    "ItemData":
+    [
+      {
+        "ItemAmount": 1,
+        "ItemCode": 1000000,
+        "ItemDescType": "",
+        "ItemPrice": 134.0,
+        "Name": "جبنة فيتا تتراباك 500جم شرنك 12",
+        "SuggestPrice": 13.5,
+        "Type": 1,
+        "itemDesc": 0.0
+      }
+    ],
+    "TimeSap": "١٣٤٣١٨",
+    "TotalDesc": 0.0,
+    "TotalPrice": 134.0
+  }
+]

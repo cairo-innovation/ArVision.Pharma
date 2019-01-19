@@ -7,10 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ArVision.Pharma.Shared.DataModels;
+using ArVision.Core.Logging;
+using ArVision.Service.Client;
+using ArVision.Service.Pharma.Shared.DTO;
 
 namespace Pharma.Controllers
 {
-    public class visitsController : Controller
+    public class visitsController : BaseController
     {
         //private Entities db = new Entities();
 
@@ -26,22 +29,53 @@ namespace Pharma.Controllers
         // GET: visits/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            CLASS_NAME = ControllerContext.CurrentClassName();
+            string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
+            if (pharmaServiceClient == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PatientVisit patientVisit = null;//aboziad//should be replaced by a service call// b.PatientVisits.Include(p => p.Doctor).Include(p => p.Juice).Include(p => p.Medicin).Include(p => p.Patient).Include(p => p.Rx).Include(p => p.User).FirstOrDefault(f=>f.Id==id);
-            if (patientVisit == null)
-            {
-                return HttpNotFound();
-            }
-            //aboziad//should be replaced by a service call
-            // ViewBag.DoctorId = new SelectList(db.Doctors, "Id", "DoctorName", patientVisit.DoctorId);
-            //ViewBag.JuiceId = new SelectList(db.Juices, "Id", "JuiceName", patientVisit.JuiceId);
-            //ViewBag.MedicinId = new SelectList(db.Medicins, "Id", "MidicinName", patientVisit.MedicinId);
-            return View(patientVisit);
-        }
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL);
 
+            }
+            if (id==0)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.np = "block";
+                ViewBag.ep = "none";
+            }
+            else
+            {
+                ViewBag.np = "none";
+                ViewBag.ep = "block";
+            }
+            //PatientVisit patientVisit = new PatientVisit();//aboziad//should be replaced by a service call// b.PatientVisits.Include(p => p.Doctor).Include(p => p.Juice).Include(p => p.Medicin).Include(p => p.Patient).Include(p => p.Rx).Include(p => p.User).FirstOrDefault(f=>f.Id==id);
+            //if (patientVisit == null)
+            //{
+            //    //return HttpNotFound();
+            //}
+            //aboziad//should be replaced by a service call
+            ViewBag.PatientId = new SelectList(pharmaServiceClient.GetList("Patient").ToList(), "Id", "Name");
+            ViewBag.DoctorId = new SelectList(pharmaServiceClient.GetList("Doctor").ToList(), "Id", "Name");
+            ViewBag.JuiceId = new SelectList(pharmaServiceClient.GetList("Juice").ToList(), "Id", "Name");
+            ViewBag.MedicinId = new SelectList(pharmaServiceClient.GetList("Medicine").ToList(), "Id", "Name");
+            //return View(patientVisit);
+            return View();
+        }
+        public JsonResult GetPatientWithRX(int? id)
+        {
+            if (id==null)
+            {
+                return null;
+            }
+            CLASS_NAME = ControllerContext.CurrentClassName();
+            string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
+            if (pharmaServiceClient == null)
+            {
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL);
+
+            }
+            var patient= pharmaServiceClient.GetPatientWithRX(id.Value);
+            return Json(patient, JsonRequestBehavior.AllowGet);
+        }
         // GET: visits/Create
         public ActionResult Create()
         {
