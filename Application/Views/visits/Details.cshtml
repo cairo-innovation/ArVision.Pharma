@@ -243,8 +243,10 @@ width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
                     $( '#Sun' )[0].checked = res.RX[0].SunDay == 0 ? false : true;
                     $( '#Notes' ).val( res.RX[0].Notes);
                     $( '#imgRx' )[0].src = res.RX[0].IMG;
-                    $( '#SDate' ).val( eval( 'new ' + res.RX[0].StartDate.replace( '/', '' ).replace( '/', '' ) ).toString());
-                    $( '#EDate' ).val( eval( 'new ' + res.RX[0].EndDate.replace( '/', '' ).replace( '/', '' ) ).toString() );
+                    var sdate = eval( 'new ' + res.RX[0].StartDate.replace( '/', '' ).replace( '/', '' ) );
+                    var edate = eval( 'new ' + res.RX[0].EndDate.replace( '/', '' ).replace( '/', '' ) );
+                    $( '#SDate' ).val( sdate.toString());
+                    $( '#EDate' ).val( edate.toString() );
                     var rxhistoryhtml = '';
                     //var d = new Date( 1547917893000 );
                     for ( var i = 0; i < res.RX.length; i++ )
