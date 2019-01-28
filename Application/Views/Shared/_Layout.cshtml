@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .file-upload {
+            display: block;
+            text-align: center;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+            .file-upload .file-select {
+                display: block;
+                border: 2px solid #dce4ec;
+                color: #34495e;
+                cursor: pointer;
+                height: 40px;
+                line-height: 40px;
+                text-align: left;
+                background: #FFFFFF;
+                overflow: hidden;
+                position: relative;
+            }
+
+                .file-upload .file-select .file-select-button {
+                    background: #dce4ec;
+                    padding: 0 10px;
+                    display: inline-block;
+                    height: 40px;
+                    line-height: 40px;
+                }
+
+                .file-upload .file-select .file-select-name {
+                    line-height: 40px;
+                    display: inline-block;
+                    padding: 0 10px;
+                }
+
+                .file-upload .file-select:hover {
+                    border-color: #34495e;
+                    transition: all .2s ease-in-out;
+                    -moz-transition: all .2s ease-in-out;
+                    -webkit-transition: all .2s ease-in-out;
+                    -o-transition: all .2s ease-in-out;
+                }
+
+                    .file-upload .file-select:hover .file-select-button {
+                        background: #34495e;
+                        color: #FFFFFF;
+                        transition: all .2s ease-in-out;
+                        -moz-transition: all .2s ease-in-out;
+                        -webkit-transition: all .2s ease-in-out;
+                        -o-transition: all .2s ease-in-out;
+                    }
+
+            .file-upload.active .file-select {
+                border-color: #3fa46a;
+                transition: all .2s ease-in-out;
+                -moz-transition: all .2s ease-in-out;
+                -webkit-transition: all .2s ease-in-out;
+                -o-transition: all .2s ease-in-out;
+            }
+
+                .file-upload.active .file-select .file-select-button {
+                    background: #3fa46a;
+                    color: #FFFFFF;
+                    transition: all .2s ease-in-out;
+                    -moz-transition: all .2s ease-in-out;
+                    -webkit-transition: all .2s ease-in-out;
+                    -o-transition: all .2s ease-in-out;
+                }
+
+            .file-upload .file-select input[type=file] {
+                z-index: 100;
+                cursor: pointer;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+
+            .file-upload .file-select.file-select-disabled {
+                opacity: 0.65;
+            }
+
+                .file-upload .file-select.file-select-disabled:hover {
+                    cursor: default;
+                    display: block;
+                    border: 2px solid #dce4ec;
+                    color: #34495e;
+                    cursor: pointer;
+                    height: 40px;
+                    line-height: 40px;
+                    margin-top: 5px;
+                    text-align: left;
+                    background: #FFFFFF;
+                    overflow: hidden;
+                    position: relative;
+                }
+
+                    .file-upload .file-select.file-select-disabled:hover .file-select-button {
+                        background: #dce4ec;
+                        color: #666666;
+                        padding: 0 10px;
+                        display: inline-block;
+                        height: 40px;
+                        line-height: 40px;
+                    }
+
+                    .file-upload .file-select.file-select-disabled:hover .file-select-name {
+                        line-height: 40px;
+                        display: inline-block;
+                        padding: 0 10px;
+                    }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("METH Software", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("File", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("View", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Search", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Settings", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Help", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    </ul>*@
+                @*</div>
+                    <div class="navbar-collapse collapse">*@
+                @*<br />
+                    <br />*@
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("File", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("View", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Search", "Index", "Home", new { area = "" }, null)</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Doctors", "Index", "Doctors")</li>
+                            <li>@Html.ActionLink("Patients", "Index", "Patients")</li>
+                            <li>@Html.ActionLink("Medicin", "Index", "Medicins")</li>
+                            <li>@Html.ActionLink("Juice", "Index", "Juices")</li>
+                            <li>@Html.ActionLink("Visits", "Index", "Visits")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Help", "Index", "Home", new { area = "" }, null)</li>
+                    @*<li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <style>
+            li a:hover:not(.active) {
+                background-color: #111;
+            }
+
+            .active {
+                background-color: #4CAF50;
+            }
+        </style>
+        <ul style="list-style-type: none;margin: 0;padding: 0;overflow: hidden;background-color: #333;">
+            <li style="float:left"><a style="display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;" href="/visits/details">Search<br />F3</a></li>
+            <li style="float:left"><a style="display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;" href="/visits/details/0">Add New<br />F4</a></li>
+            <li style="float:left"><a style="display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;" href="#">Doctors<br />F7</a></li>
+            <li style="float:right"><a style="display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;" href="#">?<br />F12</a></li>
+            <li style="float:right"><a style="display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;" href="#">Settings<br />F11</a></li>
+        </ul>
+        @*<div class="jumbotron">
+            </div>*@
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Cairo Innovation Team</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

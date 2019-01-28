@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{96C7138E-1C4D-45CD-B8F6-D79718956523}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Virtek.Base.ServiceLocationFoundation</RootNamespace>
+    <AssemblyName>Virtek.Base.ServiceLocationFoundation</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IFoundationServerControl.cs" />
+    <Compile Include="IWebApiServiceLocationFoundation.cs" />
+    <Compile Include="IWebApiServiceRunner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceBusyIndicator.cs" />
+    <Compile Include="WebApiServiceLocationFoundation.cs" />
+    <Compile Include="WebApiFoundationServerStartup.cs" />
+    <Compile Include="WebApiServiceRunner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Virtek.Common">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Virtek.Core">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="SimpleInjector">
+      <Version>4.4.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OwinWebApi\Virtek.Base.OwinWebApi.csproj">
+      <Project>{c2f301c5-6e74-4e78-9566-9725c616b2be}</Project>
+      <Name>Virtek.Base.OwinWebApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Virtek.Base.Shared.csproj">
+      <Project>{326235c4-a9ff-4307-ad3b-2c02c399d62f}</Project>
+      <Name>Virtek.Base.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
