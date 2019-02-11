@@ -1,6 +1,9 @@
-﻿using ArVision.Pharma.Shared.DataModels;
+﻿using ArVision.Core.Logging;
+using ArVision.Pharma.Shared.DataModels;
+using ArVision.Service.Client;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Pharma.Controllers
 {
-    public class MedicinsController : Controller
+    public class MedicinsController : BaseController
     {
         //private Entities db = new Entities();
 
@@ -18,7 +21,17 @@ namespace Pharma.Controllers
         public ActionResult Index()
         {
             //aboziad//should be replaced by a service call 
-            List<Medicin> medicins = new List<Medicin>();
+            CLASS_NAME = ControllerContext.CurrentClassName();
+            string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
+            if (pharmaServiceClient == null)
+            {
+                SERVICE_URL = ConfigurationManager.AppSettings["API_URL"];
+                string port = ConfigurationManager.AppSettings["TCP_PORT"];
+                int TCP_PORT = int.Parse(port);
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL, TCP_PORT);
+
+            }
+            var medicins = pharmaServiceClient.GetList("Medicine").ToList();//aboziad//should be replaced by a service call 
             return View(medicins);
         }
 

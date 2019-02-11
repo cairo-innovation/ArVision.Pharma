@@ -16,6 +16,9 @@ namespace ArVision.Service.Pharma.Shared.DTO
         public string PatientIMG { get; set; }
         public string PatientIdenficationIMG { get; set; }
         public int CreatedUser { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int UpdatedUser { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         public int DoctorId { get; set; }
     }
 }

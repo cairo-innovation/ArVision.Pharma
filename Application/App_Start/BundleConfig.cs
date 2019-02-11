@@ -9,7 +9,7 @@ namespace Pharma
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-1.12.4.js",
                         "~/Scripts/jquery-ui-1.12.1.min.js",
                         "~/Scripts/moment.js"
                         ));
@@ -21,14 +21,18 @@ namespace Pharma
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootstrap-datepicker.js",
-                      "~/Scripts/respond.js"));
+                      //"~/Scripts/bootstrap-datepicker.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/select2.min.js"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/JQueryUI/jquery-ui.min.css",
                       "~/Content/bootstrap.css",
-                      "~/Content/bootstrap-datepicker.css",
-                      "~/Content/site.css"));
+                      //"~/Content/bootstrap-datepicker.css",
+                      "~/Content/site.css",
+                      "~/Content/select2.min.css"
+                      ));
         }
     }
 }

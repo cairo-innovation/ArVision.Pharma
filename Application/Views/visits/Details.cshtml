@@ -1,202 +1,222 @@
 ﻿@*@model ArVision.Pharma.Shared.DataModels.PatientVisit*@
 
+<style>
+    .visited a {
+        background-color: #4cff00 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+    }
+    .notvisited a {
+        background-color: #ff0000 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+    }
+    .lastdays a {
+        background-color: #808080 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+    }
+</style>
 <div class="row">
-    <h6></h6>
-    <div class="col-lg-8" style="padding:0;">
-        <div class="col-lg-9">
-            <div class="row">
-                <h6></h6>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="name">Name</label>
-                    <div id="ExistedPatient" class="input-group col-lg-4" style="display:@ViewBag.ep">
-                        @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control select2",@id="patient" })
-                        @*<input type="text" name="name" id="name" value="@Model.Patient.PatientName" class="form-control" />*@
-                        <span id="btnSearchPatient" class="btn form-control-feedback input-group-addon glyphicon glyphicon-search"></span>
+    <form method="post">
+        <h6></h6>
+        <div class="col-lg-8" style="padding:0;">
+            <div class="col-lg-9">
+                <div class="row">
+                    <h6></h6>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="name">Name</label>
+                        <div id="ExistedPatient" class="input-group col-lg-4" style="display:@ViewBag.ep">
+                            @Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control select2", @id = "patient" })
+                            @*<input type="text" name="name" id="name" value="@Model.Patient.PatientName" class="form-control" />*@
+                            <span id="btnSearchPatient" class="btn form-control-feedback input-group-addon glyphicon glyphicon-search"></span>
+                        </div>
+                        <div id="NewPatient" class="input-group col-lg-4" style="display:@ViewBag.np">
+                            @*@Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control select2" })*@
+                            <input type="text" name="name" id="name" value="" class="form-control" required />
+                            @*<span id="btnSearchPatient" class="btn form-control-feedback input-group-addon glyphicon glyphicon-search"></span>*@
+                        </div>
                     </div>
-                    <div id="NewPatient" class="input-group col-lg-4" style="display:@ViewBag.np">
-                        @*@Html.DropDownList("PatientId", null, htmlAttributes: new { @class = "form-control select2" })*@
-                        <input type="text" name="name" id="name" value="" class="form-control" />
-                        @*<span id="btnSearchPatient" class="btn form-control-feedback input-group-addon glyphicon glyphicon-search"></span>*@
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="dob">DOB</label>
-                    <div class="col-lg-4">
-                        <input type="date" name="dob" id="dob" value="" class="form-control" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <h6></h6>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="Address">Address</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Address" id="Address" value="" class="form-control" style="max-width:100%" />
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="dob">DOB</label>
+                        <div class="col-lg-4">
+                            <input type="date" name="dob" id="dob" value="" class="form-control" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <h6></h6>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="Phone">Phone</label>
-                    <div class="col-lg-4">
-                        <input type="text" name="Phone" id="Phone" value="" class="form-control" />
+                <div class="row">
+                    <h6></h6>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="Address">Address</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="Address" id="Address" value="" class="form-control" style="max-width:100%" />
+                        </div>
                     </div>
                 </div>
+                <div class="row">
+                    <h6></h6>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="Phone">Phone</label>
+                        <div class="col-lg-4">
+                            <input type="text" name="Phone" id="Phone" value="" class="form-control" />
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="doctor">Doctor</label>
-                    <div class="col-lg-4">
-                        @*<input type="text" name="doctor" id="doctor" value="@Model.Patient.PatientName" class="form-control" />*@
-                        @Html.DropDownList("DoctorId", null, htmlAttributes: new { @class = "form-control",@id="doctor" })
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="doctor">Doctor</label>
+                        <div class="col-lg-4">
+                            @*<input type="text" name="doctor" id="doctor" value="@Model.Patient.PatientName" class="form-control" />*@
+                            @Html.DropDownList("DoctorId", null, htmlAttributes: new { @class = "form-control select2", @id = "doctor" })
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <h6></h6>
-                <div class="form-group">
-                    <label class="col-lg-1 control-label" for="Medicine">Medicine</label>
-                    <div class="col-lg-3">
-                        @*<select name="Medication" id="Medication" class="form-control">
-                            <option value="value">Methadone</option>
-                        </select>*@
-                        @Html.DropDownList("MedicinId", null, htmlAttributes: new { @class = "form-control",@id="medicine" })
+                <div class="row">
+                    <h6></h6>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="Medicine">Medicine</label>
+                        <div class="col-lg-3">
+                            @*<select name="Medication" id="Medication" class="form-control">
+                                <option value="value">Methadone</option>
+                            </select>*@
+                            @Html.DropDownList("MedicinId", null, htmlAttributes: new { @class = "form-control select2", @id = "medicine" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-1" for="Dose">Dose</label>
+                        <div class="input-group col-lg-3">
+                            <input type="number" name="Dose" id="Dose" value="" class="form-control" />
+                            <span class="form-control-feedback input-group-addon">Ml</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-1 control-label" for="Juice">Juice</label>
+                        <div class="col-lg-2">
+                            @*<select name="Juice" id="Juice" class="form-control">
+                                <option value="value">Orange</option>
+                            </select>*@
+                            @Html.DropDownList("JuiceId", null, htmlAttributes: new { @class = "form-control select2", @id = "juice" })
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-1" for="Dose">Dose</label>
-                    <div class="input-group col-lg-3">
-                        <input type="number" name="Dose" id="Dose" value="" class="form-control" />
-                        <span class="form-control-feedback input-group-addon">Ml</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-1 control-label" for="Juice">Juice</label>
-                    <div class="col-lg-3">
-                        @*<select name="Juice" id="Juice" class="form-control">
-                            <option value="value">Orange</option>
-                        </select>*@
-                        @Html.DropDownList("JuiceId", null, htmlAttributes: new { @class = "form-control",@id="juice" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-10">
-                    <label class="checkbox-inline"><input type="checkbox" id="Mon" value="">Mon</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="Tues" value="">Tues</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="Wed" value="">Wed</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="Thur" value="">Thur</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="Fri" value="">Fri</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="Sat" value="">Sat</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="Sun" value="">Sun</label>
-                </div>
-            </div>
-            <div class="row">
-                <h6></h6>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label" for="Notes">Notes</label>
+                <div class="col-lg-12">
+                    <div class="col-lg-2"></div>
                     <div class="col-lg-10">
-                        <textarea class="form-control" cols="20" rows="4" id="Notes" style="max-width:100%">@*@Model.Notes*@</textarea>
+                        <label class="checkbox-inline"><input type="checkbox" id="Mon" value="">Mon</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="Tues" value="">Tues</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="Wed" value="">Wed</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="Thur" value="">Thur</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="Fri" value="">Fri</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="Sat" value="">Sat</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="Sun" value="">Sun</label>
                     </div>
-                    <input class="btn btn-primary" id="btnSavePatientRX" type="button" name="name" value="Save new patient with RX" />
-                    <input class="btn btn-primary" id="btnAddRXToPatient" type="button" name="name" value="Add RX to patient" />
+                </div>
+                <div class="row">
+                    <h6></h6>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="Notes">Notes</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" cols="20" rows="4" id="Notes" style="max-width:100%">@*@Model.Notes*@</textarea>
+                        </div>
+                        <input class="btn btn-primary" id="btnSavePatientRX" type="button" name="name" value="Save" />
+                        <input class="btn btn-primary" id="btnAddRXToPatient" type="button" name="name" value="Add RX to patient" />
+                        <input class="btn btn-primary" id="btnVisitToPatient" type="button" name="name" value="Add Visit to patient" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3" style="padding:0;">
+                <div class="form-group">
+                    <img id="imgPatientPhoto" class="img-responsive" src="~/Content/imags/photo.png" alt="photo" />
+                    <div class="file-upload">
+                        <div>
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                                @*<button class="file-select-button1" id="fileNamecam1"><span class="glyphicon glyphicon-camera"></span></button>*@
+                                <div class="file-select-name" id="noFile"></div>
+                                <input type="file" name="chooseFile" id="uploadPhoto" onchange="previewFile('uploadPhoto','imgPatientPhoto')">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="file-select-button cam" id="camPhoto"><span class="glyphicon glyphicon-camera"></span></button>
+                </div>
+                <div class="form-group">
+                    <img id="imgIdentification" class="img-responsive" src="~/Content/imags/identification.png" alt="id card" />
+                    <div class="file-upload">
+                        <div>
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
+                                <div class="file-select-name" id="noFile"></div>
+                                <input type="file" name="chooseFile" id="uploadIdentification" onchange="previewFile('uploadIdentification','imgIdentification')">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="file-select-button cam" id="camIdentification"><span class="glyphicon glyphicon-camera"></span></button>
+                </div>
+            </div>
+            <div class="row">
+                <h6></h6>
+                <div class="col-lg-12">
+                    <div class="col-lg-5">
+                        <div id="datepicker"></div>
+                    </div>
+                    <div class="col-lg-7">
+                        <h4>Rx history</h4>
+                        <table id="tblRxHistory" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="col-lg-2">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*<tr>
+                                    <td>11/11/2018</td>
+                                    <td>Tomass</td>
+                                </tr>
+                                <tr>
+                                    <td>11/11/2018</td>
+                                    <td>Tomass</td>
+                                </tr>
+                                <tr>
+                                    <td>11/11/2018</td>
+                                    <td>Tomass</td>
+                                </tr>
+                                <tr>
+                                    <td>11/11/2018</td>
+                                    <td>Tomass</td>
+                                </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3" style="padding:0;">
+        <div class="col-lg-4" style="padding:0;">
             <div class="form-group">
-                <img id="imgPatientPhoto" class="img-responsive" src="~/Content/imags/photo.png" alt="photo" />
+                <img id="imgRx" class="img-responsive" src="~/Content/imags/rosheta.png" alt="rosheta" />
                 <div class="file-upload">
                     <div>
                         <div class="file-select">
                             <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
-                            @*<button class="file-select-button1" id="fileNamecam1"><span class="glyphicon glyphicon-camera"></span></button>*@
-                            <div class="file-select-name" id="noFile"></div>
-                            <input type="file" name="chooseFile" id="uploadPhoto" onchange="previewFile('uploadPhoto','imgPatientPhoto')">
+                            <div class="file-select-name" id="noFile">no files...</div>
+                            <input type="file" name="chooseFile" id="uploadRx" onchange="previewFile('uploadRx','imgRx')">
                         </div>
                     </div>
                 </div>
-                <button class="file-select-button cam" id="camPhoto"><span class="glyphicon glyphicon-camera"></span></button>
+                <button class="file-select-button cam" id="camRx"><span class="glyphicon glyphicon-camera"></span></button>
             </div>
             <div class="form-group">
-                <img id="imgIdentification" class="img-responsive" src="~/Content/imags/identification.png" alt="id card" />
-                <div class="file-upload">
-                    <div>
-                        <div class="file-select">
-                            <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
-                            <div class="file-select-name" id="noFile"></div>
-                            <input type="file" name="chooseFile" id="uploadIdentification" onchange="previewFile('uploadIdentification','imgIdentification')">
-                        </div>
-                    </div>
-                </div>
-                <button class="file-select-button cam" id="camIdentification"><span class="glyphicon glyphicon-camera"></span></button>
-            </div>
-        </div>
-        <div class="row">
-            <h6></h6>
-            <div class="col-lg-12">
-                <div class="col-lg-5">
-                    <div id="datetimepicker"></div>
-                </div>
-                <div class="col-lg-7">
-                    <h4>Rx history</h4>
-                    <table id="tblRxHistory" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="col-lg-2">Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @*<tr>
-                                <td>11/11/2018</td>
-                                <td>Tomass</td>
-                            </tr>
-                            <tr>
-                                <td>11/11/2018</td>
-                                <td>Tomass</td>
-                            </tr>
-                            <tr>
-                                <td>11/11/2018</td>
-                                <td>Tomass</td>
-                            </tr>
-                            <tr>
-                                <td>11/11/2018</td>
-                                <td>Tomass</td>
-                            </tr>*@
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4" style="padding:0;">
-        <div class="form-group">
-            <img id="imgRx" class="img-responsive" src="~/Content/imags/rosheta.png" alt="rosheta" />
-            <div class="file-upload">
+                <label class="control-label" for="SDate">Start Date</label>
                 <div>
-                    <div class="file-select">
-                        <div class="file-select-button" id="fileName"><span class="glyphicon glyphicon-folder-open"></span></div>
-                        <div class="file-select-name" id="noFile">no files...</div>
-                        <input type="file" name="chooseFile" id="uploadRx" onchange="previewFile('uploadRx','imgRx')">
-                    </div>
+                    <input type="date" name="SDate" id="SDate" value="" class="form-control" />
                 </div>
             </div>
-            <button class="file-select-button cam" id="camRx"><span class="glyphicon glyphicon-camera"></span></button>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="SDate">Start Date</label>
-            <div>
-                <input type="text" name="SDate" id="SDate" value="" class="form-control" />
+            <div class="form-group">
+                <label class="control-label" for="EDate">End Date</label>
+                <div>
+                    <input type="date" name="EDate" id="EDate" value="" class="form-control" />
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="EDate">End Date</label>
-            <div>
-                <input type="text" name="EDate" id="EDate" value="" class="form-control" />
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
 <div id="videoDiv" style="position:absolute;left:30vw;top:10vh;display:none;
 width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
@@ -207,195 +227,360 @@ width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
         <canvas style="display:none" id="canvas" width="640" height="480"></canvas>
     </div>
 </div>
+<input type="hidden" id="patientid" name="patientid" value="0" />
+<input type="hidden" id="rxid" name="rxid" value="0" />
 @section scripts{
     <script type="text/javascript">
-    $( document ).ready( function ()
-    {
-        $( '#videoDiv' ).draggable();
-        $( '#datetimepicker' ).datepicker( {
-            //inline: true,
-            //sideBySide: true
-        } );
-        $( '#btnSearchPatient' ).on( 'click', function ()
+        $( function ()
         {
-            var patientid = $( '#patient' ).val();
-            $.get( '/visits/GetPatientWithRX/' + patientid, function ( res )
+            //var apidomain = 'localhost:5671';
+            var apidomain = 'pharma.api.arleaps.com';
+            $( '.select2' ).select2();
+            $( '#videoDiv' ).draggable();
+            $( '#patient' ).change( function (e)
             {
-                $( '#name' ).val(res.Name);
-                $( '#patient' ).val(res.Id);
-                $( '#dob' ).val( eval( 'new ' + res.DOB.replace( '/', '' ).replace( '/', '' ) ).toString());
-                $( '#Address' ).val(res.Address);
-                $( '#Phone' ).val(res.Phone);
-                $( '#doctor' ).val(res.DoctorId);
-                $( '#imgPatientPhoto' )[0].src = res.PatientIMG;
-                $( '#imgIdentification' )[0].src = res.PatientIdenficationIMG;
-                if ( res.RX && res.RX.length>0 )
-                {
-                    $( '#medicine' ).val( res.RX[0].MedicineId);
-                    $( '#Dose' ).val( res.RX[0].Dose);
-                    $( '#juice' ).val( res.RX[0].JuiceId);
-                    $( '#Mon' )[0].checked = res.RX[0].MonDay == 0 ? false : true;
-                    $( '#Tues' )[0].checked = res.RX[0].TusDay == 0 ? false : true;
-                    $( '#Wed' )[0].checked = res.RX[0].WedDay == 0 ? false : true;
-                    $( '#Thur' )[0].checked = res.RX[0].ThrDay == 0 ? false : true;
-                    $( '#Fri' )[0].checked = res.RX[0].FriDay == 0 ? false : true;
-                    $( '#Sat' )[0].checked = res.RX[0].SatDay == 0 ? false : true;
-                    $( '#Sun' )[0].checked = res.RX[0].SunDay == 0 ? false : true;
-                    $( '#Notes' ).val( res.RX[0].Notes);
-                    $( '#imgRx' )[0].src = res.RX[0].IMG;
-                    var sdate = eval( 'new ' + res.RX[0].StartDate.replace( '/', '' ).replace( '/', '' ) );
-                    var edate = eval( 'new ' + res.RX[0].EndDate.replace( '/', '' ).replace( '/', '' ) );
-                    $( '#SDate' ).val( sdate.toString());
-                    $( '#EDate' ).val( edate.toString() );
-                    var rxhistoryhtml = '';
-                    //var d = new Date( 1547917893000 );
-                    for ( var i = 0; i < res.RX.length; i++ )
-                    {
-                        rxhistoryhtml += '<tr><td>' + eval( 'new ' + res.RX[i].CreatedDate.replace( '/', '' ).replace( '/', '' )).toString() + '</td></tr>';
-                    }
-                    $( '#tblRxHistory tbody' ).html('');
-                    $( '#tblRxHistory tbody' ).append( rxhistoryhtml);
-                }
-            } );
-        } )
-        $( '#btnSavePatientRX' ).on( 'click', function ()
-        {
-            var data = {};
-            data.Name = $( '#name' ).val();
-            data.DOB = $( '#dob' ).val();
-            data.Address = $( '#Address' ).val();
-            data.Phone = $( '#Phone' ).val();
-            data.DoctorId = $( '#doctor' ).val();
-            data.PatientIMG = $( '#imgPatientPhoto' )[0].src;
-            data.PatientIdenficationIMG = $( '#imgIdentification' )[0].src;
-            data.CreatedUser = '1';
-            data.RX = [];
-            var rx = {};
-            rx.StartDate = $( '#SDate' ).val();
-            rx.EndDate = $( '#EDate' ).val();
-            rx.MedicineId = $( '#medicine' ).val();
-            rx.Dose = $( '#Dose' ).val();
-            rx.JuiceId = $( '#juice' ).val();
-            rx.MonDay = $( '#Mon' )[0].checked ? '1' : '0';
-            rx.TusDay = $( '#Tues' )[0].checked ? '1' : '0';
-            rx.WedDay = $( '#Wed' )[0].checked ? '1' : '0';
-            rx.ThrDay = $( '#Thur' )[0].checked ? '1' : '0';
-            rx.FriDay = $( '#Fri' )[0].checked ? '1' : '0';
-            rx.SatDay = $( '#Sat' )[0].checked ? '1' : '0';
-            rx.SunDay = $( '#Sun' )[0].checked ? '1' : '0';
-            rx.Notes = $( '#Notes' ).val();
-            rx.IMG = $( '#imgRx' )[0].src;
-            rx.CreatedUser = '1';
-            data.RX.push( rx );
-            $.post( 'http://127.0.0.1:9080/AddPatientRX', data, function (res)
-            {
-                alert( 'Patient with Id:' + res.Id + ' has been save successfullly.' );
+                $( '#btnSearchPatient' ).click();
             })
-        } )
-        $( '#btnAddRXToPatient' ).on( 'click', function ()
-        {
-            var rx = {};
-            rx.StartDate = $( '#SDate' ).val();
-            rx.EndDate = $( '#EDate' ).val();
-            rx.MedicineId = $( '#medicine' ).val();
-            rx.PatientId = $( '#patient' ).val();
-            rx.Dose = $( '#Dose' ).val();
-            rx.JuiceId = $( '#juice' ).val();
-            rx.MonDay = $( '#Mon' )[0].checked ? '1' : '0';
-            rx.TusDay = $( '#Tues' )[0].checked ? '1' : '0';
-            rx.WedDay = $( '#Wed' )[0].checked ? '1' : '0';
-            rx.ThrDay = $( '#Thur' )[0].checked ? '1' : '0';
-            rx.FriDay = $( '#Fri' )[0].checked ? '1' : '0';
-            rx.SatDay = $( '#Sat' )[0].checked ? '1' : '0';
-            rx.SunDay = $( '#Sun' )[0].checked ? '1' : '0';
-            rx.Notes = $( '#Notes' ).val();
-            rx.IMG = $( '#imgRx' )[0].src;
-            rx.CreatedUser = '1';
-            $.post( 'http://127.0.0.1:9080/AddRXToPatient', rx, function ( res )
+            $( '#btnSearchPatient' ).on( 'click', function ()
             {
-                alert( 'RX for this Patient with Id:' + res.Id + ' has been save successfullly.' );
-            } )
-        } );
-        $( '.cam' ).on( 'click', function ( ev )
-        {
-            var target;
-            switch ( this.id )
-            {
-                case 'camPhoto':
-                    target = $( '#imgPatientPhoto' )[0];
-                    break;
-                case 'camIdentification':
-                    target = $( '#imgIdentification' )[0];
-                    break;
-                case 'camRx':
-                    target = $( '#imgRx' )[0];
-                    break;
-                default:
-            }
-            $( '#videoDiv' ).show();
-            // Grab elements, create settings, etc.
-            var video = document.getElementById( 'video' );
-
-            // Get access to the camera!
-            if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia )
-            {
-                // Not adding `{ audio: true }` since we only want video now
-                navigator.mediaDevices.getUserMedia( { video: true } ).then( function ( stream )
+                var patientid = $( '#patient' ).val();
+                $.get( '/visits/GetPatientWithRX/' + patientid, function ( res )
                 {
-                    //video.src = window.URL.createObjectURL(stream);
-                    video.srcObject = stream;
-                    video.play();
-                    $( '#snap' ).off( 'click' );
-                    makeSnapListen( video, stream, target );
+                    $( '#patientid' ).val( res.Id );
+                    $( '#name' ).val( res.Name );
+                    $( '#patient' ).val( res.Id );
+                    var dob1 = eval( 'new ' + res.DOB.replace( '/', '' ).replace( '/', '' ) );
+                    var dob2 = dob1.getFullYear() + '-' + pad( dob1.getMonth() + 1, 2 ) + '-' + pad( dob1.getDate(), 2 );
+                    $( '#dob' ).val( dob2 );
+                    $( '#Address' ).val( res.Address );
+                    $( '#Phone' ).val( res.Phone );
+                    $( '#doctor' ).val( res.DoctorId );
+                    $( '#imgPatientPhoto' )[0].src = res.PatientIMG;
+                    $( '#imgIdentification' )[0].src = res.PatientIdenficationIMG;
+                    if ( res.RX && res.RX.length > 0 )
+                    {
+                        $( '#rxid' ).val( res.RX[0].Id );
+                        $( '#medicine' ).val( res.RX[0].MedicineId );
+                        $( '#Dose' ).val( res.RX[0].Dose );
+                        $( '#juice' ).val( res.RX[0].JuiceId );
+                        $( '#Mon' )[0].checked = res.RX[0].MonDay == 0 ? false : true;
+                        $( '#Tues' )[0].checked = res.RX[0].TusDay == 0 ? false : true;
+                        $( '#Wed' )[0].checked = res.RX[0].WedDay == 0 ? false : true;
+                        $( '#Thur' )[0].checked = res.RX[0].ThrDay == 0 ? false : true;
+                        $( '#Fri' )[0].checked = res.RX[0].FriDay == 0 ? false : true;
+                        $( '#Sat' )[0].checked = res.RX[0].SatDay == 0 ? false : true;
+                        $( '#Sun' )[0].checked = res.RX[0].SunDay == 0 ? false : true;
+                        $( '#Notes' ).val( res.RX[0].Notes );
+                        $( '#imgRx' )[0].src = res.RX[0].IMG;
+                        var sdate = eval( 'new ' + res.RX[0].StartDate.replace( '/', '' ).replace( '/', '' ) );
+                        var edate = eval( 'new ' + res.RX[0].EndDate.replace( '/', '' ).replace( '/', '' ) );
+                        var sdate1 = sdate.getFullYear() + '-' + pad( sdate.getMonth() + 1, 2 ) + '-' + pad( sdate.getDate(), 2 );
+                        var edate1 = edate.getFullYear() + '-' + pad( edate.getMonth() + 1, 2 ) + '-' + pad( edate.getDate(), 2 );
+                        $( '#SDate' ).val( sdate1 );
+                        $( '#EDate' ).val( edate1 );
+                        var rxhistoryhtml = '';
+                        //var d = new Date( 1547917893000 );
+                        for ( var i = 0; i < res.RX.length; i++ )
+                        {
+                            var crd = eval( 'new ' + res.RX[i].CreatedDate.replace( '/', '' ).replace( '/', '' ) );
+                            rxhistoryhtml += '<tr><td>' + pad( crd.getDate(), 2 ) + '-' + pad( crd.getMonth() + 1, 2 ) + '-' + crd.getFullYear() + '</td></tr>';
+                        }
+                        $( '#tblRxHistory tbody' ).html( '' );
+                        $( '#tblRxHistory tbody' ).append( rxhistoryhtml );
+                        var daylist = [];
+                        if ( !res.RX[0].SunDay ) daylist.push( 0 );
+                        if ( !res.RX[0].MonDay ) daylist.push( 1 );
+                        if ( !res.RX[0].TusDay ) daylist.push( 2 );
+                        if ( !res.RX[0].WedDay ) daylist.push( 3 );
+                        if ( !res.RX[0].ThrDay ) daylist.push( 4 );
+                        if ( !res.RX[0].FriDay ) daylist.push( 5 );
+                        if ( !res.RX[0].SatDay ) daylist.push( 6 );
+                        $.post( '' +'', function ( res )
+                        {
+                            //get first day from last month
+                            var today = new Date();
+                            var month = today.getMonth();
+                            var year = today.getFullYear();
+                            if ( month == 0 )
+                            {
+                                month = 12;
+                                year = year - 1;
+                            }
+                            var lastday = new Date( year, month - 1, 1 );
+                            $( '#datepicker' ).datepicker( {
+                                minDate: lastday,
+                                maxDate: 0,
+                                beforeShowDay: function ( date )
+                                {
+                                    var day = date.getDay();
+                                    // If day == 1 then it is MOnday
+                                    if ( daylist.indexOf( day ) == -1 )
+                                    {
+                                        return [true, 'notvisited'];
+                                    } else
+                                    {
+                                        return [true, 'lastdays'];
+                                    }
+                                }
+                                //inline: true,
+                                //sideBySide: true
+                            } );
+                        } );
+                    }
+                    else
+                    {
+                        $( '#rxid' ).val( '' );
+                        $( '#medicine' ).val( '' );
+                        $( '#Dose' ).val( '' );
+                        $( '#juice' ).val( '' );
+                        $( '#Mon' )[0].checked = false;
+                        $( '#Tues' )[0].checked = false;
+                        $( '#Wed' )[0].checked = false;
+                        $( '#Thur' )[0].checked = false;
+                        $( '#Fri' )[0].checked = false;
+                        $( '#Sat' )[0].checked = false;
+                        $( '#Sun' )[0].checked = false;
+                        $( '#Notes' ).val( '' );
+                        $( '#imgRx' )[0].src = '~/Content/imags/rosheta.png';
+                        $( '#SDate' ).val( '' );
+                        $( '#EDate' ).val( '' );
+                        $( '#tblRxHistory tbody' ).html( '' );
+                    }
+                } );
+            } );
+            $( '#btnVisitToPatient' ).on( 'click', function ( e )
+            {
+                var patientid = $( '#patientid' ).val();
+                var rxid = $( '#rxid' ).val();
+                if ( patientid == '0' )
+                {
+                    alert( 'Please choose Patient.' );
+                    return;
+                }
+                if ( rxid == '0' )
+                {
+                    alert( 'Please Add RX to Patient.' );
+                    return;
+                }
+                var visit = {};
+                visit.PatientId = patientid;
+                visit.RXId = rxid;
+                visit.UserId = 1;
+                visit.CreatedUser = 1;
+                $.post( 'http://' + apidomain + '/AddVisitToPatient', visit, function ( res )//pharma.api.arleaps.com
+                {
+                    if ( res && res.Id )
+                    {
+                        alert( 'Visit #' + res.Id + ' added successfully' );
+                    }
+                    else
+                    {
+                        alert( 'error on adding!!' );
+                    }
+                } );
+            } );
+            $( '#btnSavePatientRX' ).on( 'click', function ()
+            {
+                var data = {};
+                data.Name = $( '#name' ).val();
+                data.DOB = $( '#dob' ).val();
+                data.Address = $( '#Address' ).val();
+                data.Phone = $( '#Phone' ).val();
+                data.DoctorId = $( '#doctor' ).val();
+                data.PatientIMG = $( '#imgPatientPhoto' )[0].src;
+                data.PatientIdenficationIMG = $( '#imgIdentification' )[0].src;
+                data.RX = [];
+                var rx = {};
+                rx.StartDate = $( '#SDate' ).val();
+                rx.EndDate = $( '#EDate' ).val();
+                rx.MedicineId = $( '#medicine' ).val();
+                rx.Dose = $( '#Dose' ).val();
+                rx.JuiceId = $( '#juice' ).val();
+                rx.MonDay = $( '#Mon' )[0].checked ? '1' : '0';
+                rx.TusDay = $( '#Tues' )[0].checked ? '1' : '0';
+                rx.WedDay = $( '#Wed' )[0].checked ? '1' : '0';
+                rx.ThrDay = $( '#Thur' )[0].checked ? '1' : '0';
+                rx.FriDay = $( '#Fri' )[0].checked ? '1' : '0';
+                rx.SatDay = $( '#Sat' )[0].checked ? '1' : '0';
+                rx.SunDay = $( '#Sun' )[0].checked ? '1' : '0';
+                rx.Notes = $( '#Notes' ).val();
+                rx.IMG = $( '#imgRx' )[0].src;
+                //$.post( 'http://localhost:5671/AddPatientRX', data, function ( res )
+                var patientid = $( '#patientid' ).val();
+                if ( patientid != '0' )//update
+                {
+                    rx.PatientId = patientid;
+                    var rxid = $( '#patientid' ).val();
+                    rx.Id = rxid;
+                    rx.UpdatedUser = 1;
+                    data.UpdatedUser = 1;
+                    data.Id = patientid;
+                    data.RX.push( rx );
+                    $.post( 'http://' + apidomain + '/EditPatientRX', data ).done( function ( res )
+                    {
+                        alert( 'Patient with Id:' + res.Id + ' has been save successfullly.' );
+                    } ).fail( function (res)
+                    {
+                        alert( res );
+                    });
+                }
+                else//add new
+                {
+                    if ( data.Name == null || data.Name == '' )
+                    {
+                        alert( 'Please Enter Patient!.' );
+                        return;
+                    }
+                    data.CreatedUser = 1;
+                    rx.CreatedUser = 1;
+                    data.RX.push( rx );
+                    $.ajax( {
+                        type: "POST",
+                        url: 'http://' + apidomain + '/AddPatientRX',// '/visits/addpatient',//
+                        //contentType: 'application/json',
+                        data: data,
+                        success: function ( res )
+                        {
+                            if ( !res )
+                            {
+                                alert( 'Error in saving!.' );
+                                return;
+                            }
+                            alert( 'Patient with Id:' + res.Id + ' has been save successfullly.' );
+                            $( '#patientid' ).val( res.Id );
+                            $( '#rxid' ).val( res.RX.Id );
+                        },
+                        //dataType: 'json',
+                        error: function (e)
+                        {
+                            //$.get( 'http://' + apidomain + '/getlist/juice', function ( e )
+                            //{
+                            //    alert( 'success' );
+                            //} )
+                        },
+                        complete: function (e)
+                        {
+                            // Handle the complete event
+                            //alert( "ajax completed " );
+                        }
+                    } );
+                    //$.post( 'http://localhost:5671/AddPatientRX', data ).done( function ( res )
+                    //{
+                    //    if ( !res )
+                    //    {
+                    //        alert( 'Error in saving!.' );
+                    //        return;
+                    //    }
+                    //    alert( 'Patient with Id:' + res.Id + ' has been save successfullly.' );
+                    //    $( '#patientid' ).val( res.Id );
+                    //    $( '#rxid' ).val( res.RX.Id );
+                    //} );
+                }
+            } )
+            $( '#btnAddRXToPatient' ).on( 'click', function ()
+            {
+                var rx = {};
+                rx.StartDate = $( '#SDate' ).val();
+                rx.EndDate = $( '#EDate' ).val();
+                rx.MedicineId = $( '#medicine' ).val();
+                rx.PatientId = $( '#patient' ).val();
+                rx.Dose = $( '#Dose' ).val();
+                rx.JuiceId = $( '#juice' ).val();
+                rx.MonDay = $( '#Mon' )[0].checked ? '1' : '0';
+                rx.TusDay = $( '#Tues' )[0].checked ? '1' : '0';
+                rx.WedDay = $( '#Wed' )[0].checked ? '1' : '0';
+                rx.ThrDay = $( '#Thur' )[0].checked ? '1' : '0';
+                rx.FriDay = $( '#Fri' )[0].checked ? '1' : '0';
+                rx.SatDay = $( '#Sat' )[0].checked ? '1' : '0';
+                rx.SunDay = $( '#Sun' )[0].checked ? '1' : '0';
+                rx.Notes = $( '#Notes' ).val();
+                rx.IMG = $( '#imgRx' )[0].src;
+                rx.CreatedUser = '1';
+                $.post( 'http://' + apidomain + '/AddRXToPatient', rx, function ( res )
+                {
+                    alert( 'RX for this Patient with Id:' + res.Id + ' has been save successfullly.' );
+                } )
+            } );
+            $( '.cam' ).on( 'click', function ( ev )
+            {
+                var target;
+                switch ( this.id )
+                {
+                    case 'camPhoto':
+                        target = $( '#imgPatientPhoto' )[0];
+                        break;
+                    case 'camIdentification':
+                        target = $( '#imgIdentification' )[0];
+                        break;
+                    case 'camRx':
+                        target = $( '#imgRx' )[0];
+                        break;
+                    default:
+                }
+                $( '#videoDiv' ).show();
+                // Grab elements, create settings, etc.
+                var video = document.getElementById( 'video' );
+
+                // Get access to the camera!
+                if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia )
+                {
+                    // Not adding `{ audio: true }` since we only want video now
+                    navigator.mediaDevices.getUserMedia( { video: true } ).then( function ( stream )
+                    {
+                        //video.src = window.URL.createObjectURL(stream);
+                        video.srcObject = stream;
+                        video.play();
+                        $( '#snap' ).off( 'click' );
+                        makeSnapListen( video, stream, target );
+                    } );
+                }
+                /* Legacy code below: getUserMedia */
+                else if ( navigator.getUserMedia )
+                { // Standard
+                    navigator.getUserMedia( { video: true }, function ( stream )
+                    {
+                        video.src = stream;
+                        video.play();
+                        makeSnapListen( video, stream );
+                    }, errBack );
+                } else if ( navigator.webkitGetUserMedia )
+                { // WebKit-prefixed
+                    navigator.webkitGetUserMedia( { video: true }, function ( stream )
+                    {
+                        video.src = window.webkitURL.createObjectURL( stream );
+                        video.play();
+                        makeSnapListen( video, stream );
+                    }, errBack );
+                } else if ( navigator.mozGetUserMedia )
+                { // Mozilla-prefixed
+                    navigator.mozGetUserMedia( { video: true }, function ( stream )
+                    {
+                        video.srcObject = stream;
+                        video.play();
+                        makeSnapListen( video, stream );
+                    }, errBack );
+                }
+
+            } );
+            function makeSnapListen( video, stream, target )
+            {
+                $( '#snap' ).on( 'click', function ( ev )
+                {
+                    var canvas = document.getElementById( 'canvas' );
+                    var context = canvas.getContext( '2d' );
+
+                    // Trigger photo take
+                    context.drawImage( video, 0, 0, 640, 480 );
+                    var base64 = canvas.toDataURL( "image/jpeg" );
+                    target.src = base64;
+                    video.pause();
+                    video.srcObject = null;
+                    var track = stream.getTracks()[0];  // if only one media track
+                    track.stop();
+                    $( '#videoDiv' ).hide();
                 } );
             }
-            /* Legacy code below: getUserMedia */
-            else if ( navigator.getUserMedia )
-            { // Standard
-                navigator.getUserMedia( { video: true }, function ( stream )
-                {
-                    video.src = stream;
-                    video.play();
-                    makeSnapListen( video, stream );
-                }, errBack );
-            } else if ( navigator.webkitGetUserMedia )
-            { // WebKit-prefixed
-                navigator.webkitGetUserMedia( { video: true }, function ( stream )
-                {
-                    video.src = window.webkitURL.createObjectURL( stream );
-                    video.play();
-                    makeSnapListen( video, stream );
-                }, errBack );
-            } else if ( navigator.mozGetUserMedia )
-            { // Mozilla-prefixed
-                navigator.mozGetUserMedia( { video: true }, function ( stream )
-                {
-                    video.srcObject = stream;
-                    video.play();
-                    makeSnapListen( video, stream );
-                }, errBack );
-            }
-
         } );
-        function makeSnapListen( video, stream, target )
-        {
-            $( '#snap' ).on( 'click', function ( ev )
-            {
-                var canvas = document.getElementById( 'canvas' );
-                var context = canvas.getContext( '2d' );
-
-                // Trigger photo take
-                context.drawImage( video, 0, 0, 640, 480 );
-                var base64 = canvas.toDataURL( "image/jpeg" );
-                target.src = base64;
-                video.pause();
-                video.srcObject = null;
-                var track = stream.getTracks()[0];  // if only one media track
-                track.stop();
-                $( '#videoDiv' ).hide();
-            } );
-        }
-    } );
         function previewFile( uploadId, imgId )
         {
             //var preview = document.querySelector( 'img' );
@@ -413,6 +598,12 @@ width:640px;height:480px;min-height:20vh;background-color:#fff;z-index:2000">
             {
                 reader.readAsDataURL( file );
             }
+        }
+        function pad( n, width, z )
+        {
+            z = z || '0';
+            n = n + '';
+            return n.length >= width ? n : new Array( width - n.length + 1 ).join( z ) + n;
         }
     </script>
 }

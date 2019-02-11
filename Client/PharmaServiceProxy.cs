@@ -18,10 +18,11 @@ namespace ArVision.Service.Client
     {
         private const string CLASS_NAME = nameof(PharmaServiceProxy);
 
-        public PharmaServiceProxy(Session session, string serviceUrl) 
-            : base(session, serviceUrl, PharmaServicePort.TCP_PORT, "")
+        public PharmaServiceProxy(Session session, string serviceUrl, int TCP_PORT)
+            : base(session, serviceUrl, TCP_PORT, "")
+            //: base(session, serviceUrl, PharmaServicePort.TCP_PORT, "")
         {
-            
+
             string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
 
         }
@@ -55,6 +56,20 @@ namespace ArVision.Service.Client
         public PatientDto AddPatient(PatientDto patient)
         {
             HttpWebClientResponse response = RestClient.Execute(RestSharpWebClientFactory.METHOD_POST, RestSharpWebClientFactory.REQUEST_FORMAT_JSON, PharmaServiceRoutes.ROUTE_ADD_PATIENT_RX, patient);
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw ParseExceptionFromHttpResponse(response.Content);
+            }
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects };
+                return JsonConvert.DeserializeObject<PatientDto>(response.Content, settings);
+            }
+            return patient;
+        }
+        public PatientDto EditPatient(PatientDto patient)
+        {
+            HttpWebClientResponse response = RestClient.Execute(RestSharpWebClientFactory.METHOD_POST, RestSharpWebClientFactory.REQUEST_FORMAT_JSON, PharmaServiceRoutes.ROUTE_EDIT_PATIENT_RX, patient);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw ParseExceptionFromHttpResponse(response.Content);

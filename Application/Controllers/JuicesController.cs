@@ -1,4 +1,5 @@
 ﻿
+using System.Configuration;
 using System.Linq;
 using System.Net;
 
@@ -25,7 +26,11 @@ namespace Pharma.Controllers
             string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
             if (pharmaServiceClient == null)
             {
-                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL);
+                SERVICE_URL = ConfigurationManager.AppSettings["API_URL"];
+                string port = ConfigurationManager.AppSettings["TCP_PORT"];
+                int TCP_PORT = int.Parse(port);
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL, TCP_PORT);
+
 
             }
 

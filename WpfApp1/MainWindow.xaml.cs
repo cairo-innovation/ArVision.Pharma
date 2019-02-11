@@ -20,7 +20,7 @@ namespace WpfApp1
 
             btnGetVersion.Click += btnGetVersion_Click;
             btnDosomething.Click += btnDosomething_Click;
-            serviceClient = new PharmaServiceFactory().GetPharmaServiceProxy("127.0.0.1");
+            serviceClient = new PharmaServiceFactory().GetPharmaServiceProxy("127.0.0.1",9080);
         }
         private void btnGetVersion_Click(object sender, RoutedEventArgs e)
         {

@@ -17,7 +17,9 @@ namespace ArVision.Pharma.DataAccess
         List<Patient> GetPatientList();
 
         PatientDto AddPatient(PatientDto patient);
+        PatientDto EditPatient(PatientDto patient);
         RXDto AddRXToPatient(RXDto rx);
         PatientDto GetPatientWithRX(int id);
+        VisitDto AddVisitToPatient(VisitDto visit);
    }
 }

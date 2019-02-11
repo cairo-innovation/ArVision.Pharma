@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="login-box">
+    <form method="post" class="login-form">
+        <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+        <div class="form-group">
+            <label class="control-label">USER NAME</label>
+            <input class="form-control" type="text" name="UserName" placeholder="User Name" autofocus required>
+            @*<span class="glyphicon glyphicon-user"></span>*@
+        </div>
+        <div class="form-group">
+            <label class="control-label">PASSWORD</label>
+            <input class="form-control" type="password" name="Password" placeholder="Password" required>
+            @*<span class="glyphicon glyphicon-lock"></span>*@
+        </div>
+        <div class="form-group">
+            <div class="utility">
+                @*<div class="animated-checkbox">
+                        <label>
+                            <input type="checkbox" name="RememberMe"><span class="label-text">Remember me?</span>
+                        </label>
+                    </div>*@
+                @*<p class="semibold-text mb-2"><a href="#" data-toggle="flip">Forgot Password ?</a></p>*@
+            </div>
+        </div>
+        <div class="form-group btn-container">
+            <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>Login</button>
+        </div>
+        @if (TempData["Success"] != null)
+        {
+            <div class="success">
+                @TempData["Success"]
+            </div>
+        }
+        <div class="text-danger">
+            @Html.ValidationSummary()
+            @*@Html.AntiForgeryToken()*@
+        </div>
+    </form>
+</div>

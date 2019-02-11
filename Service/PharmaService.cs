@@ -77,6 +77,11 @@ namespace ArVision.Service.Pharma
             LogManager.Logger.Trace($"{LogManager.GetCurrentMethodName(nameof(PharmaService))}; sampleInputData: [{sampleInputData}]");
 
         }
+        public PatientDto EditPatient(PatientDto patient)
+        {
+            LogManager.Logger.Trace($"{LogManager.GetCurrentMethodName(nameof(PharmaService))}; patient: [{patient}]");
+            return pharmaRepositoy.EditPatient(patient);
+        }
         public PatientDto AddPatient(PatientDto patient)
         {
             LogManager.Logger.Trace($"{LogManager.GetCurrentMethodName(nameof(PharmaService))}; patient: [{patient}]");

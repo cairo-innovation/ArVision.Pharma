@@ -18,6 +18,7 @@ namespace ArVision.Service.Pharma.Shared
         List<LookUpDto> GetList(string table);
         List<Patient> GetPatientList();
         PatientDto AddPatient(PatientDto patient);
+        PatientDto EditPatient(PatientDto patient);
         RXDto AddRXToPatient(RXDto rx);
         PatientDto GetPatientWithRX(int id);
     }

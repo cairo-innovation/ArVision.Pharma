@@ -10,6 +10,7 @@ using ArVision.Pharma.Shared.DataModels;
 using ArVision.Core.Logging;
 using ArVision.Service.Client;
 using ArVision.Service.Pharma.Shared.DTO;
+using System.Configuration;
 
 namespace Pharma.Controllers
 {
@@ -33,7 +34,10 @@ namespace Pharma.Controllers
             string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
             if (pharmaServiceClient == null)
             {
-                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL);
+                SERVICE_URL = ConfigurationManager.AppSettings["API_URL"];
+                string port = ConfigurationManager.AppSettings["TCP_PORT"];
+                int TCP_PORT = int.Parse(port);
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL, TCP_PORT);
 
             }
             if (id==0)
@@ -70,10 +74,35 @@ namespace Pharma.Controllers
             string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
             if (pharmaServiceClient == null)
             {
-                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL);
+                SERVICE_URL = ConfigurationManager.AppSettings["API_URL"];
+                string port = ConfigurationManager.AppSettings["TCP_PORT"];
+                int TCP_PORT = int.Parse(port);
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL, TCP_PORT);
+
 
             }
             var patient= pharmaServiceClient.GetPatientWithRX(id.Value);
+            return Json(patient, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult AddPatient(PatientDto patient)
+        {
+            if (patient == null)
+            {
+                return null;
+            }
+            CLASS_NAME = ControllerContext.CurrentClassName();
+            string methodName = LogManager.GetCurrentMethodName(CLASS_NAME);
+            if (pharmaServiceClient == null)
+            {
+                SERVICE_URL = ConfigurationManager.AppSettings["API_URL"];
+                string port = ConfigurationManager.AppSettings["TCP_PORT"];
+                int TCP_PORT = int.Parse(port);
+                pharmaServiceClient = new PharmaServiceFactory().GetPharmaServiceProxy(SERVICE_URL, TCP_PORT);
+
+
+            }
+            patient = pharmaServiceClient.AddPatient(patient);
             return Json(patient, JsonRequestBehavior.AllowGet);
         }
         // GET: visits/Create

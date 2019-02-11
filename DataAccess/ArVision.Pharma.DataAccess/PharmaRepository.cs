@@ -19,6 +19,7 @@ namespace ArVision.Pharma.DataAccess
 
     public class PharmaRepository : IPharmaRepository
     {
+        //private const string DATA_BASE_FOLDER_PATH = @"D:\work\Assem\Pharma\Ver2\SampleService_ver2\ArVision.Pharma.Api\Database";//".\\..\\..\\Database\\";
         private const string DATA_BASE_FOLDER_PATH = ".\\..\\..\\Database\\";
         private const string CLASS_NAME = nameof(PharmaRepository);
 
@@ -27,9 +28,34 @@ namespace ArVision.Pharma.DataAccess
 
         public PharmaRepository()
         {
+            //var s = Path.GetFullPath(DATA_BASE_FOLDER_PATH);
             string methodName = LogManager.GetCurrentMethodName(nameof(CLASS_NAME));
 
             var databaseFilePath = Path.Combine(DATA_BASE_FOLDER_PATH, "Database.sqlite");
+            //var databaseFilePath = Path.Combine(DBFolderPath, DBFileName);
+            var path = Path.GetDirectoryName(databaseFilePath);
+
+            if (!Directory.Exists(path))
+            {
+                LogManager.Logger.Trace($@"{methodName}: Directory created: ({path})");
+                Directory.CreateDirectory(path);
+            }
+
+            var builder = new SqliteConnectionStringBuilder
+            {
+                DataSource = databaseFilePath,
+            };
+            var connectionString = builder.ConnectionString;
+            SqliteDapperDbContext databaseContext = new SqliteDapperDbContext(connectionString);
+            _databaseContext = databaseContext;
+        }
+        public PharmaRepository(string DBFolderPath, string DBFileName)
+        {
+            //var s = Path.GetFullPath(DATA_BASE_FOLDER_PATH);
+            string methodName = LogManager.GetCurrentMethodName(nameof(CLASS_NAME));
+
+            //var databaseFilePath = Path.Combine(DATA_BASE_FOLDER_PATH, "Database.sqlite");
+            var databaseFilePath = Path.Combine(DBFolderPath, DBFileName);
             var path = Path.GetDirectoryName(databaseFilePath);
 
             if (!Directory.Exists(path))
@@ -116,6 +142,14 @@ namespace ArVision.Pharma.DataAccess
         }
         public PatientDto AddPatient(PatientDto patient)
         {
+            //check if name of patient exist
+            var sql = "SELECT COUNT(*) FROM patient WHERE replace(trim(lower(Name)),' ','')=replace(trim(lower(@_name)),' ','')";
+            var param = new { _name = patient.Name };
+            var count = _databaseContext.Query<int>(sql, param).First();
+            if (count>0)
+            {
+                return null;
+            }
             using (var transaction = _databaseContext.BeginTransaction())
             {
                 var createPatientSql = @"
@@ -166,6 +200,54 @@ namespace ArVision.Pharma.DataAccess
             }
             return patient;
         }
+        public PatientDto EditPatient(PatientDto patient)
+        {
+            var createPatientSql = @"
+                                        UPDATE patient SET Name=@_name, DOB=@_dob, Address=@_address, Phone=@_phone, DoctorId=@_doctorid, PatientIMG=@_patientimg, PatientIdenficationIMG=@_patientidentificationimg, UpdatedUser=@_updateduser,UpdatedDate=@_updateddate
+                                        where id=@_id;
+                                        SELECT id from patient where id=@_id;";
+            var createPatientSqlParams = new
+            {
+                _id=patient.Id,
+                _name = patient.Name,
+                _dob = patient.DOB,
+                _address = patient.Address,
+                _phone = patient.Phone,
+                _doctorid = patient.DoctorId,
+                _patientimg = patient.PatientIMG,
+                _patientidentificationimg = patient.PatientIdenficationIMG,
+                _updateduser = patient.UpdatedUser,
+                _updateddate = DateTime.Now,
+            };
+            var patientId = _databaseContext.Query<int>(createPatientSql, createPatientSqlParams).First();
+            var createRXSql = @"
+                                        UPDATE RX SET StartDate=@_startdate, EndDate=@_enddate, MedicineId=@_medicineid, Dose=@_dose, JuiceId=@_juiceid, IMG=@_img, Notes=@_notes, SunDay=@_sun, MonDay=@_mon, TusDay=@_tus, WedDay=@_wed, ThrDay=@_thr, FriDay=@_fri, SatDay=@_sat,UpdatedUser=@_updateduser,UpdatedDate=@_updateddate
+                                        WHERE PatientId=@_patientid and Id=@_id;
+                                        SELECT id from rx where id=@_id;";
+            var createRXSqlParams = new
+            {
+                _id = patient.RX[0].Id,
+                _startdate = patient.RX[0].StartDate,
+                _enddate = patient.RX[0].EndDate,
+                _patientid = patient.Id,
+                _medicineid = patient.RX[0].MedicineId,
+                _dose = patient.RX[0].Dose,
+                _juiceid = patient.RX[0].JuiceId,
+                _img = patient.RX[0].IMG,
+                _notes = patient.RX[0].Notes,
+                _sun = patient.RX[0].SunDay,
+                _mon = patient.RX[0].MonDay,
+                _tus = patient.RX[0].TusDay,
+                _wed = patient.RX[0].WedDay,
+                _thr = patient.RX[0].ThrDay,
+                _fri = patient.RX[0].FriDay,
+                _sat = patient.RX[0].SatDay,
+                _updateduser = patient.UpdatedUser,
+                _updateddate = DateTime.Now,
+            };
+            var rxId = _databaseContext.Query<int>(createRXSql, createRXSqlParams).First();
+            return patient;
+        }
         public RXDto AddRXToPatient(RXDto rx)
         {
             using (var transaction = _databaseContext.BeginTransaction())
@@ -200,6 +282,33 @@ namespace ArVision.Pharma.DataAccess
             }
             return rx;
         }
+        public VisitDto AddVisitToPatient(VisitDto visit)
+        {
+            using (var transaction = _databaseContext.BeginTransaction())
+            {
+                var createVisitSql = @"
+                                        INSERT INTO VISIT (PatientId, RXId, UserId, CreatedUser, CreatedDate)
+                                        VALUES (@_patientid, @_rxid, @_userid,  @_createduser,@_createddate)
+                                        ;
+                                        SELECT last_insert_rowid();";
+                var createVisitSqlParams = new
+                {
+                    _patientid = visit.PatientId,
+                    _rxid = visit.RXId,
+                    _userid = visit.UserId,
+                    _createddate = DateTime.Now,
+                    _createduser = visit.CreatedUser,
+                };
+                var visitId = _databaseContext.Query<int>(createVisitSql, createVisitSqlParams).First();
+                visit.Id = visitId;
+                transaction.Commit();
+            }
+            return visit;
+        }
+        //public List<VisitDto> GetAllVisits()
+        //{
+        //    var sql = "select * from visits";
+        //}
         /*
             public ModuleDto Insert(ModuleDto moduleDto)
             {

@@ -4,8 +4,8 @@ namespace ArVision.Service.Client
 {
     public interface IPharmaServiceFactory
     {
-        PharmaServiceProxy GetPharmaServiceProxy(string serviceUrl);
+        PharmaServiceProxy GetPharmaServiceProxy(string serviceUrl, int TCP_PORT);
 
-        PharmaServiceProxy GetPharmaServiceProxy(Session session, string serviceUrl);
+        PharmaServiceProxy GetPharmaServiceProxy(Session session, string serviceUrl, int TCP_PORT);
     }
 }
